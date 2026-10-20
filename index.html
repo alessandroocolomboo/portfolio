@@ -31,6 +31,8 @@ const SITO = {
   github: "",       // es. "https://github.com/tuonome" (vuoto = non compare)
   telefono: "",     // vuoto = non compare
   fotografia: "https://alessandroocolomboo.github.io",
+  foto: "foto-profilo.jpg",   // la tua foto, nella cartella principale. Vuoto = nessuna foto.
+  fotoQuadrata: "foto-quadrata.jpg",   // versione quadrata, per il cerchio della scelta lingua
   cv: { it: "cv/CV_Alessandro_Colombo_IT.pdf", en: "cv/CV_Alessandro_Colombo_EN.pdf" },
   googleAnalytics: "",   // il tuo ID di misurazione, es. "G-ABC123XYZ". Vuoto = niente statistiche.
 };
@@ -199,93 +201,118 @@ const PROGETTI = [
 ];
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#F4F6F9">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <title>Alessandro Colombo | Electronics Engineering</title>
 <meta name="description" content="Alessandro Colombo, MSc student in Electronics Engineering at Politecnico di Milano. Embedded systems, PCB design and sensors.">
 <meta property="og:title" content="Alessandro Colombo | Electronics Engineering">
 <meta property="og:description" content="Embedded systems, PCB design and sensors. Projects and CV.">
-<meta property="og:image" content="https://alessandroocolomboo.github.io/favicon.png">
+<meta property="og:image" content="https://alessandroocolomboo.github.io/EngineeringPortfolio/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --nero: #000000;
-    --superficie: #0D0D0D;
-    --linea: #262626;
-    --bianco: #FFFFFF;
-    --testo: #D9D9D9;
-    --grigio: #8C8C8C;
+    --sfondo: #F4F6F9;
+    --superficie: #FFFFFF;
+    --tenue: #E8EDF4;
+    --linea: #DCE2EA;
+    --blu: #102C53;          /* Blue Heritage del Politecnico */
+    --blu-scuro: #0B2140;
+    --azzurro: #4DC9FF;      /* Bright Blue, area Ingegneria */
+    --titolo: #102C53;
+    --testo: #27374D;
+    --grigio: #5E6E83;
     --bordo: clamp(16px, 4vw, 40px);
     --colonna: 1120px;
-    --font: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  html { background: var(--nero); color-scheme: dark; -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+  html { background: var(--sfondo); color-scheme: light; -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
   body {
-    margin: 0; background: var(--nero); color: var(--testo);
-    font-family: var(--font); font-size: 1rem; line-height: 1.6;
+    margin: 0; background: var(--sfondo); color: var(--testo);
+    font-family: var(--font); font-size: 1rem; line-height: 1.65;
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   body:has(dialog[open]) { overflow: hidden; }
-  :focus-visible { outline: 2px solid var(--bianco); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--blu); outline-offset: 3px; }
   a { color: inherit; }
-  h1, h2, h3 { color: var(--bianco); font-weight: 600; letter-spacing: -.005em; }
+  h1, h2, h3 { color: var(--titolo); font-weight: 700; letter-spacing: -.01em; }
   .contenitore { max-width: calc(var(--colonna) + 2 * var(--bordo)); margin-inline: auto; padding-inline: var(--bordo); }
 
   /* Testata */
-  .testa { position: sticky; top: 0; z-index: 10; background: var(--nero); border-bottom: 1px solid transparent; }
+  .testa {
+    position: sticky; top: 0; z-index: 10; border-bottom: 1px solid transparent;
+    background: rgba(244, 246, 249, .88); -webkit-backdrop-filter: saturate(1.4) blur(10px); backdrop-filter: saturate(1.4) blur(10px);
+  }
   .testa.staccata { border-bottom-color: var(--linea); }
   .testa .contenitore {
     display: flex; align-items: center; gap: 20px;
     padding-top: calc(env(safe-area-inset-top, 0px) + 14px); padding-bottom: 14px;
   }
-  .logo { color: var(--bianco); text-decoration: none; font-weight: 600; font-size: 1.0625rem; margin-right: auto; }
+  .logo { color: var(--titolo); text-decoration: none; font-weight: 700; font-size: 1.0625rem; margin-right: auto; }
   .nav { display: flex; gap: 24px; }
-  .nav button, .menu-voci button {
-    background: none; border: 0; padding: 6px 0; font: inherit; color: var(--grigio); cursor: pointer;
-  }
-  .nav button { font-size: .9375rem; font-weight: 500; }
-  .nav button:hover { color: var(--bianco); }
-  .lingua { display: flex; border: 1px solid var(--linea); border-radius: 999px; padding: 2px; }
+  .nav button, .menu-voci button { background: none; border: 0; padding: 6px 0; font: inherit; color: var(--grigio); cursor: pointer; }
+  .nav button { font-size: .9375rem; font-weight: 600; }
+  .nav button:hover { color: var(--titolo); }
+  .lingua { display: flex; border: 1px solid var(--linea); border-radius: 999px; padding: 2px; background: var(--superficie); }
   .lingua button {
     background: none; border: 0; border-radius: 999px; padding: 4px 10px; min-width: 40px;
-    font: inherit; font-size: .8125rem; font-weight: 600; letter-spacing: .04em; color: var(--grigio); cursor: pointer;
+    font: inherit; font-size: .8125rem; font-weight: 700; letter-spacing: .04em; color: var(--grigio); cursor: pointer;
   }
-  .lingua button[aria-pressed="true"] { background: var(--bianco); color: var(--nero); }
-  .hamb { display: none; width: 44px; height: 44px; margin-right: -10px; place-items: center; background: none; border: 0; color: var(--bianco); cursor: pointer; }
+  .lingua button[aria-pressed="true"] { background: var(--blu); color: #fff; }
+  .hamb { display: none; width: 44px; height: 44px; margin-right: -10px; place-items: center; background: none; border: 0; color: var(--titolo); cursor: pointer; }
   .hamb svg { width: 24px; height: 24px; }
   @media (max-width: 760px) { .nav { display: none; } .hamb { display: grid; } }
 
   dialog#menu {
     position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
-    margin: 0; padding: 0; border: 0; background: var(--nero); color: var(--bianco);
+    margin: 0; padding: 0; border: 0; background: var(--sfondo); color: var(--titolo);
   }
-  dialog#menu::backdrop { background: var(--nero); }
+  dialog#menu::backdrop { background: var(--sfondo); }
   dialog#menu[open] { display: flex; flex-direction: column; }
   .menu-testa { display: flex; justify-content: flex-end; padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--bordo) 14px; }
   .menu-voci { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding-bottom: 10vh; }
-  .menu-voci button { font-size: 1.75rem; font-weight: 500; }
-  .menu-voci button:hover { color: var(--bianco); }
+  .menu-voci button { font-size: 1.75rem; font-weight: 600; }
+  .menu-voci button:hover { color: var(--titolo); }
 
-  /* Apertura */
-  .apertura { padding-top: clamp(48px, 10vw, 128px); padding-bottom: clamp(56px, 9vw, 112px); }
-  .apertura h1 { margin: 0; font-size: clamp(2.4rem, 7vw, 4.75rem); line-height: 1.02; letter-spacing: -.02em; }
-  .ruolo { margin: 18px 0 0; font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--bianco); max-width: 40ch; }
+  /* Apertura: testo a sinistra, foto a destra */
+  .apertura {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px 64px;
+    padding-top: clamp(40px, 8vw, 104px); padding-bottom: clamp(48px, 8vw, 96px);
+  }
+  .apertura.senza-foto { grid-template-columns: minmax(0, 1fr); }
+  .apertura h1 { margin: 0; font-size: clamp(2.4rem, 6.4vw, 4.5rem); line-height: 1.02; letter-spacing: -.03em; }
+  .ruolo { margin: 18px 0 0; font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 600; color: var(--titolo); max-width: 40ch; line-height: 1.45; }
   .intro { margin: 10px 0 0; color: var(--grigio); max-width: 52ch; }
+  .ritratto { position: relative; width: clamp(220px, 26vw, 320px); }
+  /* il cerchio richiama la forma base dell'identità del Politecnico */
+  .ritratto::before {
+    content: ""; position: absolute; z-index: 0; width: 62%; aspect-ratio: 1; border-radius: 50%;
+    right: -14%; top: -10%; background: var(--azzurro); opacity: .45;
+  }
+  .ritratto img {
+    position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+    border-radius: 16px; background: var(--tenue);
+    box-shadow: 0 1px 2px rgba(16, 44, 83, .08), 0 18px 40px -18px rgba(16, 44, 83, .35);
+  }
+  @media (max-width: 720px) {
+    .apertura { grid-template-columns: minmax(0, 1fr); }
+    .ritratto { order: -1; width: 132px; }
+    .ritratto img { border-radius: 12px; }
+  }
   .azioni { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px;
-    border: 1px solid var(--linea); border-radius: 999px; text-decoration: none;
-    color: var(--bianco); font-weight: 500; font-size: .9375rem;
+    border: 1px solid var(--linea); border-radius: 999px; text-decoration: none; background: var(--superficie);
+    color: var(--titolo); font-weight: 600; font-size: .9375rem; transition: border-color .15s ease, background-color .15s ease;
   }
-  .btn:hover { border-color: var(--grigio); }
-  .btn.primario { background: var(--bianco); color: var(--nero); border-color: var(--bianco); }
-  .btn.primario:hover { background: var(--testo); }
+  .btn:hover { border-color: var(--blu); }
+  .btn.primario { background: var(--blu); color: #fff; border-color: var(--blu); }
+  .btn.primario:hover { background: var(--blu-scuro); border-color: var(--blu-scuro); }
   .btn svg { width: 16px; height: 16px; }
 
   /* Sezioni */
@@ -296,23 +323,23 @@ const PROGETTI = [
   .progetti { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
   .scheda {
     display: flex; flex-direction: column; text-decoration: none; color: inherit;
-    border: 1px solid var(--linea); border-radius: 6px; overflow: hidden; background: var(--superficie);
-    transition: border-color .15s ease;
+    border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; background: var(--superficie);
+    transition: border-color .15s ease, box-shadow .15s ease;
   }
-  .scheda:hover { border-color: var(--grigio); }
-  .copertina { aspect-ratio: 16 / 10; background: #141414; overflow: hidden; position: relative; }
+  .scheda:hover { border-color: #B8C5D6; box-shadow: 0 14px 30px -20px rgba(16, 44, 83, .45); }
+  .copertina { aspect-ratio: 16 / 10; background: var(--tenue); overflow: hidden; position: relative; }
   .copertina img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .copertina .numero {
-    position: absolute; left: 18px; bottom: 10px; font-size: 4.5rem; font-weight: 600; line-height: 1;
-    color: #262626; letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+    position: absolute; left: 18px; bottom: 8px; font-size: 4.5rem; font-weight: 700; line-height: 1;
+    color: rgba(16, 44, 83, .13); letter-spacing: -.04em; font-variant-numeric: tabular-nums;
   }
   .scheda-corpo { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .scheda h3 { margin: 0; font-size: 1.125rem; line-height: 1.3; }
   .contesto { margin: 0; font-size: .8125rem; color: var(--grigio); }
   .scheda p.sintesi { margin: 2px 0 0; font-size: .9375rem; }
   .etichette { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 10px 0 0; list-style: none; }
-  .etichette li { font-size: .75rem; padding: 3px 9px; border: 1px solid var(--linea); border-radius: 999px; color: var(--testo); }
-  .stato { align-self: flex-start; font-size: .75rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--bianco); color: var(--nero); }
+  .etichette li { font-size: .75rem; font-weight: 500; padding: 3px 9px; border: 1px solid var(--linea); border-radius: 999px; color: var(--testo); background: var(--sfondo); }
+  .stato { align-self: flex-start; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--azzurro); color: var(--blu); }
 
   /* Competenze, formazione, lingue */
   .gruppi { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 28px 32px; }
@@ -329,56 +356,58 @@ const PROGETTI = [
 
   .contatti { display: grid; gap: 22px; margin: 0; }
   .contatti dt { font-size: .8125rem; color: var(--grigio); }
-  .contatti dd { margin: 2px 0 0; font-size: clamp(1.05rem, 2.2vw, 1.3rem); font-weight: 500; overflow-wrap: anywhere; }
-  .contatti a { color: var(--bianco); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .35); }
-  .contatti a:hover { border-bottom-color: var(--bianco); }
+  .contatti dd { margin: 2px 0 0; font-size: clamp(1.05rem, 2.2vw, 1.3rem); font-weight: 600; overflow-wrap: anywhere; }
+  .contatti a { color: var(--blu); text-decoration: none; border-bottom: 1px solid rgba(16, 44, 83, .3); }
+  .contatti a:hover { border-bottom-color: var(--blu); }
   .piede { padding-top: clamp(64px, 9vw, 112px); padding-bottom: 28px; font-size: .8125rem; color: var(--grigio); display: flex; flex-wrap: wrap; gap: 8px 24px; }
   .piede button { background: none; border: 0; padding: 0; font: inherit; color: var(--grigio); text-decoration: underline; cursor: pointer; }
 
   /* Pagina di un progetto */
   .dettaglio { padding-top: clamp(24px, 4vw, 48px); }
-  .indietro { display: inline-flex; align-items: center; gap: 6px; color: var(--grigio); text-decoration: none; font-size: .9375rem; }
-  .indietro:hover { color: var(--bianco); }
-  .dettaglio h1 { margin: 20px 0 8px; font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.1; }
+  .indietro { display: inline-flex; align-items: center; gap: 6px; color: var(--grigio); text-decoration: none; font-size: .9375rem; font-weight: 600; }
+  .indietro:hover { color: var(--titolo); }
+  .dettaglio h1 { margin: 20px 0 8px; font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -.025em; }
   .dettaglio .testo { max-width: 72ch; }
   .dettaglio .etichette { margin-bottom: 28px; }
   .dettaglio h2 { font-size: 1.125rem; margin: 36px 0 8px; }
   .dettaglio p { margin: 0 0 1em; }
   .galleria { display: grid; gap: 12px; margin-top: 32px; }
-  .galleria img { width: 100%; height: auto; display: block; border-radius: 4px; background: #141414; }
+  .galleria img { width: 100%; height: auto; display: block; border-radius: 8px; background: var(--tenue); }
   .collegamenti { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 
   /* Scelta della lingua al primo accesso */
   dialog#scelta {
     position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
-    margin: 0; padding: 0; border: 0; background: var(--nero); color: var(--bianco);
+    margin: 0; padding: 0; border: 0; background: var(--sfondo); color: var(--titolo);
   }
-  dialog#scelta::backdrop { background: var(--nero); }
+  dialog#scelta::backdrop { background: var(--sfondo); }
   dialog#scelta[open] { display: grid; place-items: center; }
   .scelta-box { text-align: center; padding: 24px; }
-  .scelta-box img { width: 72px; height: 72px; display: block; margin: 0 auto 28px; }
+  .scelta-box img { width: 72px; height: 72px; display: block; margin: 0 auto 28px; border-radius: 12px; }
+  .scelta-box img.tonda { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; box-shadow: 0 0 0 6px var(--superficie), 0 0 0 7px var(--linea); }
   .scelta-box p { margin: 0 0 4px; color: var(--grigio); }
   .scelta-box .scelta-btn { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
   .scelta-box button {
-    min-width: 150px; min-height: 52px; border-radius: 999px; border: 1px solid var(--linea);
-    background: none; color: var(--bianco); font: inherit; font-weight: 500; font-size: 1.0625rem; cursor: pointer;
+    min-width: 150px; min-height: 52px; border-radius: 999px; border: 1px solid var(--linea); background: var(--superficie);
+    color: var(--titolo); font: inherit; font-weight: 600; font-size: 1.0625rem; cursor: pointer;
   }
-  .scelta-box button:hover { border-color: var(--bianco); }
+  .scelta-box button:hover { border-color: var(--blu); }
 
   /* Consenso alle statistiche */
   .consenso {
     position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); transform: translateX(-50%);
     width: min(640px, calc(100% - 24px)); z-index: 20;
-    background: #111; border: 1px solid var(--linea); border-radius: 8px; padding: 16px 18px;
+    background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 16px 18px;
+    box-shadow: 0 18px 40px -20px rgba(16, 44, 83, .45);
     display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; font-size: .875rem;
   }
   .consenso p { margin: 0; flex: 1 1 280px; }
   .consenso .azioni-consenso { display: flex; gap: 8px; }
   .consenso button {
-    min-height: 40px; padding: 8px 16px; border-radius: 999px; font: inherit; font-weight: 500; cursor: pointer;
-    border: 1px solid var(--linea); background: none; color: var(--bianco);
+    min-height: 40px; padding: 8px 16px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--linea); background: var(--superficie); color: var(--titolo);
   }
-  .consenso button.si { background: var(--bianco); color: var(--nero); border-color: var(--bianco); }
+  .consenso button.si { background: var(--blu); color: #fff; border-color: var(--blu); }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
@@ -413,7 +442,7 @@ const PROGETTI = [
 
 <dialog id="scelta" aria-label="Lingua / Language">
   <div class="scelta-box">
-    <img src="favicon.png" alt="">
+    <img id="scelta-img" src="favicon.png" alt="">
     <p>Scegli la lingua</p>
     <p>Choose your language</p>
     <div class="scelta-btn">
@@ -558,13 +587,21 @@ function paginaPrincipale(box) {
   const c = el("div", "contenitore");
 
   const ap = el("section", "apertura");
-  ap.append(el("h1", null, SITO.nome), el("p", "ruolo", t(PROFILO.ruolo)), el("p", "intro", t(PROFILO.intro)));
+  const testoAp = el("div", "apertura-testo");
+  testoAp.append(el("h1", null, SITO.nome), el("p", "ruolo", t(PROFILO.ruolo)), el("p", "intro", t(PROFILO.intro)));
   const az = el("div", "azioni");
   if (t(SITO.cv)) az.append(bottone(t(T.scaricaCV), t(SITO.cv), true, "scarica"));
   if (SITO.linkedin) az.append(bottone("LinkedIn", SITO.linkedin, false, "freccia", true));
   if (SITO.github) az.append(bottone("GitHub", SITO.github, false, "freccia", true));
   if (SITO.email) az.append(bottone("Email", `mailto:${SITO.email}`, false));
-  ap.append(az);
+  testoAp.append(az);
+  ap.append(testoAp);
+  if (SITO.foto) {
+    const cornice = el("div", "ritratto");
+    const img = el("img"); img.src = SITO.foto; img.alt = SITO.nome; img.decoding = "async";
+    img.addEventListener("error", () => { cornice.remove(); ap.classList.add("senza-foto"); });
+    cornice.append(img); ap.append(cornice);
+  } else ap.classList.add("senza-foto");
   c.append(ap);
 
   // Progetti
@@ -598,7 +635,7 @@ function paginaPrincipale(box) {
   const vl = el("div", "voce");
   vl.append(el("div", "quando", t(T.lingue)));
   const dl = el("div");
-  LINGUE.forEach(l => { const p = el("p"); const s = el("strong", null, t(l.lingua)); s.style.color = "var(--bianco)"; s.style.fontWeight = "500"; p.append(s, document.createTextNode(`: ${t(l.livello)}`)); dl.append(p); });
+  LINGUE.forEach(l => { const p = el("p"); const s = el("strong", null, t(l.lingua)); s.style.color = "var(--titolo)"; s.style.fontWeight = "600"; p.append(s, document.createTextNode(`: ${t(l.livello)}`)); dl.append(p); });
   vl.append(dl); lista.append(vl);
   sf.append(lista);
   c.append(sf);
@@ -747,6 +784,13 @@ function traccia() {
 
 /* Avvio */
 const scelta = $("scelta");
+// nel cerchio iniziale uso la versione quadrata; se manca, la foto normale
+[SITO.fotoQuadrata, SITO.foto].filter(Boolean).reduceRight((dopo, file) => () => {
+  const prova = new Image();
+  prova.onload = () => { $("scelta-img").src = file; $("scelta-img").classList.add("tonda"); };
+  prova.onerror = dopo;
+  prova.src = file;
+}, () => {})();
 scelta.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { scelta.close(); impostaLingua(b.dataset.l); }));
 scelta.addEventListener("cancel", (e) => e.preventDefault());
 impostaLingua(lingua, !primaVisita);
