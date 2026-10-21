@@ -194,7 +194,7 @@ const PROGETTI = [
     id: "biochip",
     titolo: { it: "Biochip Project", en: "Biochip Project" },
     contesto: { it: "Biochip, team di 5 studenti", en: "Biochip, team of 5 students" },
-    strumenti: ["KiCad", "AD8022", "Impedance spectroscopy", "Moku (lock-in)", "Conformal mapping", "PCB"],
+    strumenti: ["KiCad", "AD8022", "Impedance spectroscopy", "Moku:Go", "Conformal mapping", "PCB"],
     sintesi: {
       it: "Sensore di impedenza per liquidi su PCB con elettrodi interdigitati in oro, validato tra 1 kHz e 1 MHz.",
       en: "PCB-based liquid impedance sensor with gold interdigitated electrodes, validated between 1 kHz and 1 MHz.",
@@ -205,7 +205,10 @@ const PROGETTI = [
       en: "A liquid impedance sensor built on a PCB. Two gold interdigitated electrodes are in contact with the liquid, and a transimpedance amplifier turns the current flowing between them into a measurable voltage. Conductivity changes by orders of magnitude between deionized, tap and salt water: measuring the impedance between 1 kHz and 1 MHz tells them apart.",
     },
     // Il tuo contributo: scrivilo qui in italiano e inglese, compare nel riquadro azzurro.
-    ruolo: { it: "", en: "" },
+        ruolo: {
+      it: "Ho partecipato a tutte le fasi del progetto: dimensionamento degli elettrodi e stima dell'impedenza con il conformal mapping, progetto dell'amplificatore a transimpedenza, schema e layout in KiCad, assemblaggio della scheda e misure con il Moku:Go.",
+      en: "I took part in every phase of the project: electrode sizing and impedance estimation with conformal mapping, transimpedance amplifier design, schematic and layout in KiCad, board assembly and measurements with the Moku:Go.",
+    },
     sezioni: [
       {
         titolo: { it: "Due geometrie di elettrodi", en: "Two electrode geometries" },
@@ -239,12 +242,13 @@ const PROGETTI = [
         },
         immagine: { file: "progetti/biochip/05-pcb.jpg", testo: { it: "Layout in KiCad e vista 3D della scheda.", en: "KiCad layout and 3D view of the board." } },
       },
-      {
+            {
         titolo: { it: "Misure", en: "Measurements" },
         testo: {
-          it: "La scheda è stata validata con spettroscopia di impedenza da 1 kHz a 1 MHz, usando una piattaforma Moku in modalità lock-in, che separa parte reale e immaginaria del segnale. Il protocollo prevede una misura a vuoto per vedere le capacità parassite, poi acqua deionizzata, acqua di rubinetto e soluzioni saline sempre più concentrate.",
-          en: "The board was validated with impedance spectroscopy from 1 kHz to 1 MHz, using a Moku platform in lock-in mode, which separates the real and imaginary parts of the signal. The protocol includes a measurement with no liquid to see parasitic capacitances, then deionized water, tap water and increasingly concentrated salt solutions.",
+          it: "La scheda è stata validata con spettroscopia di impedenza da 1 kHz a 1 MHz, usando un Moku:Go collegato alla scheda e al portatile. Il protocollo prevede una misura a vuoto per vedere le capacità parassite, poi acqua deionizzata, acqua di rubinetto e soluzioni saline sempre più concentrate.",
+          en: "The board was validated with impedance spectroscopy from 1 kHz to 1 MHz, using a Moku:Go connected to the board and a laptop. The protocol includes a measurement with no liquid to see parasitic capacitances, then deionized water, tap water and increasingly concentrated salt solutions.",
         },
+        immagine: { file: "progetti/biochip/06-misure.jpg", testo: { it: "Il banco di misura: la scheda collegata al Moku:Go e i liquidi da misurare.", en: "The measurement bench: the board connected to the Moku:Go and the liquids to measure." } },
       },
     ],
     risultati: {
