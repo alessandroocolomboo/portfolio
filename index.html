@@ -1,0 +1,1010 @@
+<!doctype html>
+<!--
+  PORTFOLIO DI INGEGNERIA, italiano e inglese, un solo file.
+
+  COSA MODIFICARE: solo il blocco "DA MODIFICARE" qui sotto.
+  - SITO: contatti, link al CV, codice di Google Analytics.
+  - PROFILO, COMPETENZE, FORMAZIONE, LINGUE: i testi delle sezioni.
+  - PROGETTI: ogni progetto ha i testi in italiano (it) e in inglese (en).
+    I campi lasciati vuoti ("") non compaiono sul sito.
+
+  IMMAGINI DEI PROGETTI
+    Mettile in  progetti/<id del progetto>/  (es. progetti/lumos-probe/01.jpg),
+    ridotte a 2048 px, e scrivi il percorso nell'elenco "immagini" del progetto.
+    La prima immagine è anche la copertina nella lista dei progetti.
+    Per una didascalia: { file: "progetti/x/01.jpg", testo: { it: "...", en: "..." } }
+
+  STRUTTURA COMPLETA DI UN PROGETTO (vedi lumos-probe come esempio)
+    copertina   immagine principale: in home e in testa alla pagina del progetto
+    intro       due o tre frasi sotto il titolo
+    ruolo       il tuo contributo, in un riquadro azzurro
+    sezioni     l'approfondimento: ogni sezione ha titolo, testo e immagine
+    risultati   chiusura in evidenza, su fondo blu
+    I progetti senza "sezioni" mostrano la struttura semplice (descrizione, problema, risultati).
+    Per andare a capo tra due paragrafi, dentro un testo scrivi \n\n
+
+  VIDEO DI UN PROGETTO
+    Nel campo "video" incolla il link di condivisione (Google Drive o YouTube).
+    Su Drive il video deve essere condiviso con "Chiunque abbia il link".
+
+  CV: carica i due PDF nella cartella  cv/  con i nomi scritti in SITO.cv.
+
+  LINK DIRETTO IN UNA LINGUA (salta la scelta iniziale):  .../?lang=en  oppure  .../?lang=it
+  Utile per il link nel CV inglese e su LinkedIn.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>
+/* ===================== DA MODIFICARE ===================== */
+
+const SITO = {
+  nome: "Alessandro Colombo",
+  email: "alessandrocolombopriv@gmail.com",
+  linkedin: "https://www.linkedin.com/in/alessandrocolombo02",
+  github: "",       // es. "https://github.com/tuonome" (vuoto = non compare)
+  telefono: "",     // vuoto = non compare
+  fotografia: "https://alessandroocolomboo.github.io",
+  foto: "foto-profilo.jpg",   // la tua foto, nella cartella principale. Vuoto = nessuna foto.
+  fotoQuadrata: "foto-quadrata.jpg",   // versione quadrata, per il cerchio della scelta lingua
+  cv: { it: "cv/CV_Alessandro_Colombo_IT.pdf", en: "cv/CV_Alessandro_Colombo_EN.pdf" },
+  googleAnalytics: "G-9XNG09RFLN",   // il tuo ID di misurazione, es. "G-ABC123XYZ". Vuoto = niente statistiche.
+};
+
+const PROFILO = {
+  ruolo: {
+    it: "Studente di Laurea Magistrale in Electronics Engineering al Politecnico di Milano.",
+    en: "MSc student in Electronics Engineering at Politecnico di Milano.",
+  },
+  chiSono: {
+    it: "Sono appassionato di automotive, in particolare del motorsport, e più in generale dei sistemi in cui meccanica ed elettronica lavorano in sinergia. Mi sto avvicinando ai settori di aerospaziale e difesa, anche attraverso la tesi sui display avionici che sto svolgendo, e mi interessano i dispositivi indossabili, su cui ho svolto diversi progetti. Sono disponibile a trasferte e ad esperienze di lavoro all'estero; nel tempo libero mi dedico allo sport, alla fotografia ed ai viaggi.",
+    en: "I am very interested in automotive, especially motorsport, and more broadly in systems in which mechanics and electronics work in synergy. I am moving towards the aerospace and defence sectors, also through my thesis on avionics displays, and I am interested in wearable devices, on which I have carried out several projects. I am available for business travel and work experience abroad; in my free time I enjoy sports, photography and travelling.",
+  },
+};
+
+const COMPETENZE = [
+  { gruppo: { it: "Linguaggi", en: "Programming languages" }, voci: ["C", "Python", "MATLAB", { it: "VHDL (base)", en: "VHDL (basic)" }] },
+  { gruppo: { it: "Embedded", en: "Embedded" }, voci: ["STM32 (STM32CubeIDE)", "Arduino", "I²C", "SPI", "Bluetooth Low Energy"] },
+  { gruppo: { it: "Progettazione hardware", en: "Hardware design" }, voci: ["Altium Designer", "KiCad", { it: "Schematico e layout PCB", en: "Schematic and PCB layout" }, "PSpice", { it: "Vivado (base, FPGA)", en: "Vivado (basic, FPGA)" }] },
+  { gruppo: { it: "Simulazione e controllo", en: "Simulation and control" }, voci: ["MATLAB/Simulink", "Vehicle Dynamics Blockset"] },
+  { gruppo: { it: "Altro", en: "Other" }, voci: [{ it: "PLC base (Ladder, IL, SFC)", en: "Basic PLC (Ladder, IL, SFC)" }, { it: "AutoCAD (base)", en: "AutoCAD (basic)" }, "Microsoft Office"] },
+];
+
+const FORMAZIONE = [
+  {
+    periodo: { it: "Set 2024 – Apr 2027", en: "Sep 2024 – Apr 2027" },
+    titolo: { it: "Laurea Magistrale in Electronics Engineering", en: "MSc in Electronics Engineering" },
+    ente: "Politecnico di Milano",
+    nota: { it: "Esami completati, tesi in corso.", en: "All exams completed, thesis in progress." },
+  },
+  {
+    periodo: { it: "Set 2021 – Set 2024", en: "Sep 2021 – Sep 2024" },
+    titolo: { it: "Laurea Triennale in Ingegneria Elettronica", en: "BSc in Electronics Engineering" },
+    ente: "Politecnico di Milano",
+    nota: { it: "", en: "" },
+  },
+];
+
+const LINGUE = [
+  { lingua: { it: "Italiano", en: "Italian" }, livello: { it: "Madrelingua", en: "Native speaker" } },
+  { lingua: { it: "Inglese", en: "English" }, livello: { it: "C1, TOEIC 950/990 (2024)", en: "C1, TOEIC 950/990 (2024)" } },
+];
+
+// Ordine dell'elenco = ordine sul sito.
+// problema, contributo e risultati sono vuoti: riempili tu, compaiono da soli quando li scrivi.
+const PROGETTI = [
+  {
+    id: "avionics-display",
+    stato: { it: "In corso", en: "In progress" },
+    titolo: { it: "Analisi e verifica dei guasti nei display avionici", en: "Fault Analysis and Verification for Avionics Displays" },
+    contesto: { it: "Tesi magistrale, Politecnico di Milano", en: "MSc thesis, Politecnico di Milano" },
+    strumenti: ["Microcontrollers", "Avionics", "Photodiodes", "Arduino", "Altium"],
+    sintesi: {
+      it: "Un microcontrollore disegna la simbologia di volo su un display e dei sensori ottici verificano che l'immagine sia quella comandata.",
+      en: "A microcontroller renders flight symbology on a display while optical sensors check that the image matches the command.",
+    },
+    descrizione: {
+      it: "Sistema di verifica in anello chiuso per display avionici. Un microcontrollore genera la simbologia di volo (orizzonte artificiale) su un display di tipo avionico, mentre sensori ottici (fotodiodi) verificano che pixel e simboli di riferimento corrispondano all'immagine comandata, generando un warning in caso di discrepanza.",
+      en: "Closed-loop verification system for avionics displays. A microcontroller renders the flight symbology (artificial horizon) on an avionics-type display, while optical sensors (photodiodes) check that reference pixels and symbols match the commanded image, raising a warning in case of mismatch.",
+    },
+    problema: { it: "", en: "" },
+    contributo: { it: "", en: "" },
+    risultati: { it: "", en: "" },
+    immagini: ["progetti/avionics-display/01.jpg"],
+    link: [],
+  },
+  {
+    id: "lumos-probe",
+    titolo: { it: "Lumos Probe", en: "Lumos Probe" },
+    contesto: { it: "Smart Wearables Design and Prototyping, team di 5 studenti", en: "Smart Wearables Design and Prototyping, team of 5 students" },
+    strumenti: ["STM32U5", "C", "Flutter", "Bluetooth Low Energy", "AS7341", "Altium Designer", "I²C", "MDF", "IMU"],
+    sintesi: {
+      it: "Sonda per occhiali smart con sensore spettrale e microfono MEMS: firmware su STM32U5 e un'app che riconosce in tempo reale il contesto di chi la indossa.",
+      en: "Smart-eyewear probe with a spectral sensor and a MEMS microphone: STM32U5 firmware and an app that recognizes the wearer's context in real time.",
+    },
+    // Immagine principale: copertina nella lista dei progetti e in testa alla pagina del progetto
+    copertina: { file: "progetti/lumos-probe/02-piattaforma.jpg", testo: { it: "La piattaforma di occhiali smart: la sonda si collega alla scheda principale tramite un flex.", en: "The smart-eyewear platform: the probe connects to the main board through a flex bridge." } },
+    intro: {
+      it: "Una sonda di sensori per una piattaforma di occhiali smart basata su STM32U5. Un sensore spettrale e un microfono MEMS misurano luce e rumore; insieme al movimento rilevato dall'IMU, questi dati alimentano un'app che riconosce in tempo reale il contesto di chi indossa gli occhiali e gli dà consigli, per esempio sull'esposizione alla luce o al rumore.",
+      en: "A sensor probe for an STM32U5-based smart-eyewear platform. A spectral sensor and a MEMS microphone measure light and noise; together with the motion detected by the IMU, these data feed an app that recognizes the wearer's context in real time and gives advice, for example on exposure to light or noise.",
+    },
+    ruolo: {
+      it: "Ho lavorato soprattutto sul software: i driver del sensore spettrale e del microfono, la trasmissione Bluetooth Low Energy verso lo smartphone e, nell'app in Flutter, la visualizzazione in tempo reale, la classificazione dell'ambiente e la logica dei consigli all'utente. Sul lato hardware ho cercato e integrato in Altium Designer footprint e simboli schematici dei componenti.",
+      en: "I worked mainly on the software: the drivers for the spectral sensor and the microphone, the Bluetooth Low Energy link to the smartphone and, in the Flutter app, the real-time visualization, the classification of the environment and the advice logic for the user. On the hardware side, I sourced and integrated component footprints and schematic symbols in Altium Designer.",
+    },
+    sezioni: [
+      {
+        titolo: { it: "Hardware e componenti", en: "Hardware and components" },
+        testo: {
+          it: "La sonda monta il sensore spettrale AS7341 e il microfono MEMS IMP34DT05 e si collega alla scheda principale con un connettore BM29B tramite un flex. Il connettore si innesta con un'altezza di 0,6 mm, quindi i componenti sullo stesso lato non possono superarla: per questo il condensatore da 1 µF è passato dal formato 0402 allo 0201.\n\nIl pull-up da 2,2 kΩ sulla linea I²C è stato scelto tra un minimo di 233 Ω, imposto dalla corrente di sink, e un massimo di 14 kΩ, imposto dal tempo di salita, che risulta di circa 47 ns.",
+          en: "The probe carries the AS7341 spectral sensor and the IMP34DT05 MEMS microphone, and connects to the main board through a BM29B connector and a flex bridge. The connector mates at a 0.6 mm stacking height, so components on the same side must stay below it: that is why the 1 µF capacitor moved from 0402 to 0201.\n\nThe 2.2 kΩ I²C pull-up was chosen between a 233 Ω minimum, set by the sink current, and a 14 kΩ maximum, set by the rise time, which comes out at about 47 ns.",
+        },
+        immagine: { file: "progetti/lumos-probe/01-pcb-3d.jpg", testo: { it: "Vista 3D dei due lati della sonda progettata in Altium, 5,8 × 8,0 mm.", en: "3D view of both sides of the probe designed in Altium, 5.8 × 8.0 mm." } },
+      },
+      {
+        titolo: { it: "PCB a 2 layer", en: "2-layer PCB" },
+        testo: {
+          it: "Abbiamo progettato sia una versione a 4 layer sia una a 2. Il 4 layer riduce il rumore grazie al piano di massa dedicato, ma è più spesso, più costoso e più esposto a errori di produzione, e i sensori della sonda campionano troppo lentamente per averne bisogno.\n\nLa scheda finale è a 2 layer, 5,8 × 8,0 mm, con regole di progetto prese dai limiti di JLCPCB: piste da 0,089 a 0,152 mm, distanza minima 0,127 mm, via da 0,25 mm.\n\nIl progetto non è stato prodotto: per avere risultati confrontabili tra i gruppi, il corso ha poi fornito a tutti la stessa sonda, su cui abbiamo sviluppato e provato firmware e app.",
+          en: "We designed both a 4-layer and a 2-layer version. The 4-layer board reduces noise thanks to its dedicated ground plane, but it is thicker, more expensive and more exposed to manufacturing errors, and the probe's sensors sample too slowly to need it.\n\nThe final board is a 2-layer, 5.8 × 8.0 mm design, with design rules taken from JLCPCB's limits: tracks from 0.089 to 0.152 mm, 0.127 mm minimum clearance, 0.25 mm vias.\n\nThe design was not manufactured: to keep results comparable across groups, the course then gave everyone the same probe, on which we developed and tested the firmware and the app.",
+        },
+        immagine: { file: "progetti/lumos-probe/03-layout-pcb.jpg", testo: { it: "Layout a 2 layer: lato superiore, inferiore e sovrapposti.", en: "2-layer layout: top, bottom and combined." } },
+      },
+      {
+        titolo: { it: "Misure di luce e suono", en: "Light and sound measurements" },
+        testo: {
+          it: "L'AS7341 lavora con guadagno 64× e tempo di integrazione di 27,8 ms, e legge 8 canali spettrali più Clear e NIR. I conteggi grezzi vengono convertiti in irradianza (µW/cm²) con un fattore di sensibilità diverso per ogni canale.\n\nIl microfono, letto tramite la periferica MDF dell'STM32, fornisce un flusso digitale da cui il firmware calcola l'RMS, poi i dBFS e infine un livello di pressione sonora stimato in dB SPL.",
+          en: "The AS7341 runs at 64× gain with a 27.8 ms integration time and reads 8 spectral channels plus Clear and NIR. Raw counts are converted into irradiance (µW/cm²) with a different sensitivity factor for each channel.\n\nThe microphone, read through the STM32's MDF peripheral, provides a digital stream from which the firmware computes the RMS, then dBFS and finally an estimated sound pressure level in dB SPL.",
+        },
+        immagine: { file: "progetti/lumos-probe/07-misure.jpg", testo: { it: "Irradianza per canale e livello sonoro stimato, scaricati dalla memoria della sonda.", en: "Per-channel irradiance and estimated sound level, downloaded from the probe's memory." } },
+      },
+      {
+        titolo: { it: "Firmware e sincronizzazione", en: "Firmware and synchronization" },
+        testo: {
+          it: "Il firmware sull'STM32U5 è diviso in driver indipendenti per sensore spettrale, microfono, IMU, Bluetooth, memoria e LED. Un timer scandisce le acquisizioni a ritmi diversi: l'IMU a circa 100 Hz, il microfono ogni mezzo secondo, la luce ogni 2 secondi. Ogni sensore aggiorna una propria cache con un flag, e l'elaborazione parte solo quando tutti hanno un campione nuovo.\n\nLe misure vengono anche salvate su una memoria NAND e si possono scaricare in seguito con strumenti Python che le decodificano, le esportano in CSV e le tracciano.",
+          en: "The STM32U5 firmware is split into independent drivers for the spectral sensor, microphone, IMU, Bluetooth, memory and LEDs. A timer paces the acquisitions at different rates: the IMU at about 100 Hz, the microphone every half second, the light sensor every 2 seconds. Each sensor updates its own cache with a flag, and processing starts only when all of them have a new sample.\n\nMeasurements are also stored in NAND memory and can be downloaded later with Python tools that decode them, export them to CSV and plot them.",
+        },
+        immagine: { file: "progetti/lumos-probe/08-imu.jpg", testo: { it: "Dati dell'IMU (accelerometro e giroscopio) scaricati dalla memoria della sonda.", en: "IMU data (accelerometer and gyroscope) downloaded from the probe's memory." } },
+      },
+      {
+        titolo: { it: "Riconoscimento del contesto", en: "Context recognition" },
+        testo: {
+          it: "Nell'app, dai dati vengono estratte caratteristiche semplici: intensità luminosa totale, peso di ciascun canale e colore dominante; media e picco del livello sonoro; per il movimento, l'accelerazione senza la componente statica e la frequenza di oscillazione, che distinguono fermo, camminata e corsa.\n\nUn classificatore a regole combina luce, suono e movimento per riconoscere situazioni come lavoro al PC, camminata all'aperto o attività in palestra, e associa a ciascuna un consiglio.",
+          en: "In the app, simple features are extracted from the data: total light intensity, the weight of each channel and the dominant colour; mean and peak sound level; for motion, the acceleration without its static component and the oscillation frequency, which tell standing, walking and running apart.\n\nA rule-based classifier combines light, sound and motion to recognize situations such as PC work, outdoor walking or gym activity, and links each one to a piece of advice.",
+        },
+        immagine: { file: "progetti/lumos-probe/04-app-contesto.jpg", testo: { it: "Due esempi di riconoscimento nell'app: relax all'aperto e corsa.", en: "Two recognition examples in the app: outdoor relaxation and running." } },
+      },
+      {
+        titolo: { it: "App e Bluetooth", en: "App and Bluetooth" },
+        testo: {
+          it: "Le misure arrivano allo smartphone tramite il modulo Bluetooth Low Energy RN4871. L'app, sviluppata in Flutter, mostra in tempo reale lo spettro della luce, il livello sonoro e il movimento, più un riepilogo della sessione con la percentuale di tempo passata in ogni situazione.\n\nAbbiamo spostato l'elaborazione nell'app per non caricare il microcontrollore e allungare la durata della batteria, già messa alla prova dalla trasmissione BLE.",
+          en: "Measurements reach the smartphone through the RN4871 Bluetooth Low Energy module. The app, built in Flutter, shows the light spectrum, sound level and motion in real time, plus a session summary with the share of time spent in each situation.\n\nWe moved the processing to the app to keep the load off the microcontroller and extend battery life, which BLE transmission already strains.",
+        },
+        immagine: { file: "progetti/lumos-probe/06-app-report.jpg", testo: { it: "Riepilogo della sessione e livello sonoro stimato nell'app.", en: "Session summary and estimated sound level in the app." } },
+      },
+    ],
+    risultati: {
+      it: "Un sistema completo, dalla scheda all'app: il progetto di una PCB a 2 layer di 5,8 × 8,0 mm entro le regole di produzione di JLCPCB, un firmware modulare con acquisizione sincronizzata e salvataggio in memoria, e un'app in Flutter che, sulla sonda fornita dal corso, riconosce in tempo reale il contesto di chi indossa gli occhiali combinando tre sensori.",
+      en: "A complete system, from board to app: the design of a 2-layer, 5.8 × 8.0 mm PCB within JLCPCB's manufacturing rules, modular firmware with synchronized acquisition and on-board storage, and a Flutter app that, running with the course-provided probe, recognizes the wearer's context in real time by combining three sensors.",
+    },
+    // Incolla qui il link di condivisione del video (Google Drive o YouTube). Vuoto = nessun video.
+    video: "https://drive.google.com/file/d/1emeRxjt735eWtxVPBADBE_-qR7Y6kT_J/view?usp=drive_link",
+    link: [],
+  },
+  {
+    id: "biochip",
+    titolo: { it: "Biochip Project", en: "Biochip Project" },
+    contesto: { it: "Biochip, team di 5 studenti", en: "Biochip, team of 5 students" },
+    strumenti: ["PCB", "AD8022", "Impedance spectroscopy", "Moku (lock-in)", "Conformal mapping"],
+    sintesi: {
+      it: "Sensore di impedenza per liquidi su PCB con elettrodi interdigitati in oro, validato tra 1 kHz e 1 MHz.",
+      en: "PCB-based liquid impedance sensor with gold interdigitated electrodes, validated between 1 kHz and 1 MHz.",
+    },
+    descrizione: {
+      it: "Progettazione, realizzazione e caratterizzazione sperimentale di un sensore di impedenza per liquidi su PCB, con elettrodi complanari interdigitali in oro e front-end a transimpedenza (AD8022). La geometria degli elettrodi è stata dimensionata con stima della resistenza della soluzione tramite conformal mapping. La scheda è stata validata con spettroscopia di impedenza tra 1 kHz e 1 MHz con piattaforma Moku (lock-in), misurando acqua deionizzata, acqua di rubinetto e soluzioni saline.",
+      en: "Design, fabrication and experimental characterization of a PCB-based liquid impedance sensor, with gold interdigitated coplanar electrodes and a transimpedance front-end (AD8022). The electrode geometry was sized by estimating the solution resistance through conformal mapping. The board was validated through impedance spectroscopy between 1 kHz and 1 MHz with a Moku platform (lock-in), measuring deionized water, tap water and saline solutions.",
+    },
+    problema: { it: "", en: "" },
+    contributo: { it: "", en: "" },
+    risultati: { it: "", en: "" },
+    immagini: [],
+    link: [],
+  },
+  {
+    id: "trajectory-tracking",
+    titolo: { it: "Trajectory Tracking Controller", en: "Trajectory Tracking Controller" },
+    contesto: { it: "Automation and Control in Autonomous Vehicle, progetto individuale", en: "Automation and Control in Autonomous Vehicle, individual project" },
+    strumenti: ["MATLAB", "Simulink", "Vehicle Dynamics Blockset", "MPC"],
+    sintesi: {
+      it: "Controllore MPC che insegue posizione e velocità di un veicolo con parametri simili a una F1 su un giro di Monza.",
+      en: "MPC controller tracking the position and speed of a vehicle with F1-like parameters over a lap of Monza.",
+    },
+    descrizione: {
+      it: "Progettazione in MATLAB/Simulink (Vehicle Dynamics Blockset) di un controllore MPC che insegue posizione e velocità di un veicolo con parametri F1-like su un giro completo all'Autodromo di Monza. Ho sviluppato un global planning della racing line, che ottimizza il compromesso lunghezza/curvatura e calcola il profilo di velocità sull'ellisse di aderenza. Ho poi tarato il controllore (tempo di campionamento, orizzonti, pesi) a partire dall'analisi dei dati di simulazione.",
+      en: "Design in MATLAB/Simulink (Vehicle Dynamics Blockset) of an MPC controller that tracks the position and speed of a vehicle with F1-like parameters over a full lap of the Monza circuit. I developed a global planner for the racing line, which optimizes the length/curvature trade-off and computes the speed profile on the friction ellipse. I then tuned the controller (sampling time, horizons, weights) based on the analysis of simulation data.",
+    },
+    problema: { it: "", en: "" },
+    contributo: { it: "", en: "" },
+    risultati: { it: "", en: "" },
+    immagini: [],
+    link: [],
+  },
+  {
+    id: "computer-generated-hologram",
+    titolo: { it: "Computer Generated Hologram", en: "Computer Generated Hologram" },
+    contesto: { it: "Analog and Digital Holography, progetto individuale", en: "Analog and Digital Holography, individual project" },
+    strumenti: ["MATLAB", "Gerchberg–Saxton", "520 nm laser", "Optics"],
+    sintesi: {
+      it: "Ologramma calcolato in MATLAB, stampato su pellicola con stampanti da ufficio e ricostruito con un laser a 520 nm.",
+      en: "Hologram computed in MATLAB, printed on film with office printers and reconstructed with a 520 nm laser.",
+    },
+    descrizione: {
+      it: "Generazione in MATLAB di un ologramma di ampiezza off-axis a partire da una fase ottimizzata con l'algoritmo di Gerchberg–Saxton. L'ologramma è stato stampato su pellicola trasparente con stampanti da ufficio e ricostruito con un laser a 520 nm in laboratorio (Smart Eyewear Lab – EssilorLuxottica). Ottimizzando risoluzione e angolo off-axis ho ottenuto una ricostruzione nitida. Analizzando i picchi di diffrazione ho poi misurato la risoluzione effettiva delle stampanti confrontando stampa laser e inkjet. Ho infine replicato l'esperimento a casa con un laser da meno di 1 mW, individuando nella collimazione del fascio il limite del setup low-cost.",
+      en: "MATLAB generation of an off-axis amplitude hologram from a phase optimized with the Gerchberg–Saxton algorithm. The hologram was printed on transparent film with office printers and reconstructed with a 520 nm laser in the laboratory (Smart Eyewear Lab – EssilorLuxottica). By optimizing resolution and off-axis angle, I obtained a sharp reconstruction. By analyzing the diffraction peaks, I then measured the effective resolution of the printers, comparing laser and inkjet printing. Finally, I replicated the experiment at home with a sub-1 mW laser, identifying beam collimation as the limit of the low-cost setup.",
+    },
+    problema: { it: "", en: "" },
+    contributo: { it: "", en: "" },
+    risultati: { it: "", en: "" },
+    immagini: [],
+    link: [],
+  },
+  {
+    id: "aegis-cerbero",
+    titolo: { it: "Aegis Cerbero", en: "Aegis Cerbero" },
+    contesto: { it: "Smart Materials for Wearables, team di 4 studenti", en: "Smart Materials for Wearables, team of 4 students" },
+    strumenti: ["Hall sensor", "Bluetooth Low Energy", "MATLAB", "Hydrogel", "BoM"],
+    sintesi: {
+      it: "Concept di paradenti smart che monitora in tempo reale lo stress fisico negli sport da contatto.",
+      en: "Concept of a smart mouthguard that monitors physical stress in real time during contact sports.",
+    },
+    descrizione: {
+      it: "Concept di un paradenti smart per sport da contatto che monitora lo stress fisico in tempo reale tramite l'alfa-amilasi salivare. Il sistema integra un idrogel magnetico funzionalizzato con aptameri, una membrana elettrofilata in TPU/PEG e un sensore Hall con microcontrollore, che attiva un feedback aptico e trasmette i dati via BLE. Il progetto ha incluso selezione dei materiali, modellazione in MATLAB, analisi dei costi (BoM) e limitazioni.",
+      en: "Concept of a smart mouthguard for contact sports that monitors physical stress in real time through salivary alpha-amylase. The system integrates an aptamer-functionalized magnetic hydrogel, an electrospun TPU/PEG membrane and a Hall sensor with a microcontroller, which triggers haptic feedback and transmits data via BLE. The project included material selection, MATLAB modelling, cost analysis (BoM) and limitations.",
+    },
+    problema: { it: "", en: "" },
+    contributo: { it: "", en: "" },
+    risultati: { it: "", en: "" },
+    immagini: [],
+    link: [],
+  },
+];
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F4F6F9">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="apple-touch-icon" href="favicon.png?v=2">
+<title>Alessandro Colombo | Electronics Engineering</title>
+<meta name="description" content="Alessandro Colombo, MSc student in Electronics Engineering at Politecnico di Milano. Embedded systems, PCB design and sensors.">
+<meta property="og:title" content="Alessandro Colombo | Electronics Engineering">
+<meta property="og:description" content="Embedded systems, PCB design and sensors. Projects and CV.">
+<meta property="og:image" content="https://alessandroocolomboo.github.io/portfolio/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sfondo: #F4F6F9;
+    --superficie: #FFFFFF;
+    --tenue: #E8EDF4;
+    --linea: #DCE2EA;
+    --blu: #102C53;          /* Blue Heritage del Politecnico */
+    --blu-scuro: #0B2140;
+    --azzurro: #4DC9FF;      /* Bright Blue, area Ingegneria */
+    --titolo: #102C53;
+    --testo: #27374D;
+    --grigio: #5E6E83;
+    --bordo: clamp(16px, 4vw, 40px);
+    --colonna: 1120px;
+    --font: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { background: var(--sfondo); color-scheme: light; -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+  body {
+    margin: 0; background: var(--sfondo); color: var(--testo);
+    font-family: var(--font); font-size: 1rem; line-height: 1.65;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body:has(dialog[open]) { overflow: hidden; }
+  :focus-visible { outline: 2px solid var(--blu); outline-offset: 3px; }
+  a { color: inherit; }
+  h1, h2, h3 { color: var(--titolo); font-weight: 700; letter-spacing: -.01em; }
+  .contenitore { max-width: calc(var(--colonna) + 2 * var(--bordo)); margin-inline: auto; padding-inline: var(--bordo); }
+
+  /* Testata */
+  .testa {
+    position: sticky; top: 0; z-index: 10; border-bottom: 1px solid transparent;
+    background: rgba(244, 246, 249, .88); -webkit-backdrop-filter: saturate(1.4) blur(10px); backdrop-filter: saturate(1.4) blur(10px);
+  }
+  .testa.staccata { border-bottom-color: var(--linea); }
+  .testa .contenitore {
+    display: flex; align-items: center; gap: 20px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 14px); padding-bottom: 14px;
+  }
+  .logo { color: var(--titolo); text-decoration: none; font-weight: 700; font-size: 1.0625rem; margin-right: auto; }
+  .nav { display: flex; gap: 24px; }
+  .nav button, .menu-voci button { background: none; border: 0; padding: 6px 0; font: inherit; color: var(--grigio); cursor: pointer; }
+  .nav button { font-size: .9375rem; font-weight: 600; }
+  .nav button:hover { color: var(--titolo); }
+  .lingua { display: flex; border: 1px solid var(--linea); border-radius: 999px; padding: 2px; background: var(--superficie); }
+  .lingua button {
+    background: none; border: 0; border-radius: 999px; padding: 4px 10px; min-width: 40px;
+    font: inherit; font-size: .8125rem; font-weight: 700; letter-spacing: .04em; color: var(--grigio); cursor: pointer;
+  }
+  .lingua button[aria-pressed="true"] { background: var(--blu); color: #fff; }
+  .hamb { display: none; width: 44px; height: 44px; margin-right: -10px; place-items: center; background: none; border: 0; color: var(--titolo); cursor: pointer; }
+  .hamb svg { width: 24px; height: 24px; }
+  @media (max-width: 760px) { .nav { display: none; } .hamb { display: grid; } }
+
+  dialog#menu {
+    position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+    margin: 0; padding: 0; border: 0; background: var(--sfondo); color: var(--titolo);
+  }
+  dialog#menu::backdrop { background: var(--sfondo); }
+  dialog#menu[open] { display: flex; flex-direction: column; }
+  .menu-testa { display: flex; justify-content: flex-end; padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--bordo) 14px; }
+  .menu-voci { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding-bottom: 10vh; }
+  .menu-voci button { font-size: 1.75rem; font-weight: 600; }
+  .menu-voci button:hover { color: var(--titolo); }
+
+  /* Apertura: testo a sinistra, foto a destra */
+  .apertura {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px 64px;
+    padding-top: clamp(40px, 8vw, 104px); padding-bottom: clamp(48px, 8vw, 96px);
+  }
+  .apertura.senza-foto { grid-template-columns: minmax(0, 1fr); }
+  .apertura h1 { margin: 0; font-size: clamp(2.4rem, 6.4vw, 4.5rem); line-height: 1.02; letter-spacing: -.03em; }
+  .ruolo { margin: 18px 0 0; font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 600; color: var(--titolo); max-width: 40ch; line-height: 1.45; }
+  .intro { margin: 10px 0 0; color: var(--grigio); max-width: 52ch; }
+  .ritratto { position: relative; width: clamp(220px, 26vw, 320px); }
+  /* il cerchio richiama la forma base dell'identità del Politecnico */
+  .ritratto::before {
+    content: ""; position: absolute; z-index: 0; width: 62%; aspect-ratio: 1; border-radius: 50%;
+    right: -14%; top: -10%; background: var(--azzurro); opacity: .45;
+  }
+  .ritratto img {
+    position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+    border-radius: 16px; background: var(--tenue);
+    box-shadow: 0 1px 2px rgba(16, 44, 83, .08), 0 18px 40px -18px rgba(16, 44, 83, .35);
+  }
+  @media (max-width: 720px) {
+    .apertura { grid-template-columns: minmax(0, 1fr); }
+    .ritratto { order: -1; width: 132px; }
+    .ritratto img { border-radius: 12px; }
+  }
+  .azioni { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px;
+    border: 1px solid var(--linea); border-radius: 999px; text-decoration: none; background: var(--superficie);
+    color: var(--titolo); font-weight: 600; font-size: .9375rem; transition: border-color .15s ease, background-color .15s ease;
+  }
+  .btn:hover { border-color: var(--blu); }
+  .btn.primario { background: var(--blu); color: #fff; border-color: var(--blu); }
+  .btn.primario:hover { background: var(--blu-scuro); border-color: var(--blu-scuro); }
+  .btn svg { width: 16px; height: 16px; }
+
+  /* Sezioni */
+  section.blocco { padding-top: clamp(48px, 7vw, 88px); }
+  .blocco > h2 { margin: 0 0 28px; font-size: clamp(1.5rem, 3vw, 2rem); }
+
+  /* Progetti */
+  .progetti { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
+  .scheda {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; background: var(--superficie);
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .scheda:hover { border-color: #B8C5D6; box-shadow: 0 14px 30px -20px rgba(16, 44, 83, .45); }
+  .copertina { aspect-ratio: 16 / 10; background: var(--tenue); overflow: hidden; position: relative; }
+  .copertina img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .copertina .numero {
+    position: absolute; left: 18px; bottom: 8px; font-size: 4.5rem; font-weight: 700; line-height: 1;
+    color: rgba(16, 44, 83, .13); letter-spacing: -.04em; font-variant-numeric: tabular-nums;
+  }
+  .scheda-corpo { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .scheda h3 { margin: 0; font-size: 1.125rem; line-height: 1.3; }
+  .contesto { margin: 0; font-size: .8125rem; color: var(--grigio); }
+  .scheda p.sintesi { margin: 2px 0 0; font-size: .9375rem; }
+  .etichette { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 10px 0 0; list-style: none; }
+  .etichette li { font-size: .75rem; font-weight: 500; padding: 3px 9px; border: 1px solid var(--linea); border-radius: 999px; color: var(--testo); background: var(--sfondo); }
+  .stato { align-self: flex-start; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--azzurro); color: var(--blu); }
+
+  /* Competenze, formazione, lingue */
+  .gruppi { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 28px 32px; }
+  .gruppi h3 { margin: 0 0 10px; font-size: .9375rem; }
+  .gruppi ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: .9375rem; }
+  .elenco { display: grid; gap: 24px; margin: 0; }
+  .voce { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 4px 24px; padding-top: 24px; border-top: 1px solid var(--linea); }
+  .voce:first-child { border-top: 0; padding-top: 0; }
+  .voce .quando { color: var(--grigio); font-size: .875rem; font-variant-numeric: tabular-nums; }
+  .voce h3 { margin: 0; font-size: 1.0625rem; }
+  .voce p { margin: 2px 0 0; font-size: .9375rem; }
+  @media (max-width: 640px) { .voce { grid-template-columns: 1fr; } }
+  .chi p { max-width: 68ch; margin: 0 0 1em; }
+
+  .contatti { display: grid; gap: 22px; margin: 0; }
+  .contatti dt { font-size: .8125rem; color: var(--grigio); }
+  .contatti dd { margin: 2px 0 0; font-size: clamp(1.05rem, 2.2vw, 1.3rem); font-weight: 600; overflow-wrap: anywhere; }
+  .contatti a { color: var(--blu); text-decoration: none; border-bottom: 1px solid rgba(16, 44, 83, .3); }
+  .contatti a:hover { border-bottom-color: var(--blu); }
+  .piede { padding-top: clamp(64px, 9vw, 112px); padding-bottom: 28px; font-size: .8125rem; color: var(--grigio); display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .piede button { background: none; border: 0; padding: 0; font: inherit; color: var(--grigio); text-decoration: underline; cursor: pointer; }
+
+  /* Pagina di un progetto */
+  .dettaglio { padding-top: clamp(24px, 4vw, 48px); }
+  .indietro { display: inline-flex; align-items: center; gap: 6px; color: var(--grigio); text-decoration: none; font-size: .9375rem; font-weight: 600; }
+  .indietro:hover { color: var(--titolo); }
+
+  /* Testa del progetto: testo a sinistra, immagine principale a destra */
+  .p-testa {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px 56px; align-items: center;
+    margin-top: 24px; padding: clamp(20px, 3.5vw, 40px); border: 1px solid var(--linea); border-radius: 16px; background: var(--superficie);
+  }
+  .p-testa.senza-immagine { grid-template-columns: minmax(0, 1fr); }
+  .p-contesto { margin: 0; font-size: .8125rem; font-weight: 600; color: var(--grigio); letter-spacing: .01em; }
+  .p-testa h1 { margin: 10px 0 0; font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.06; letter-spacing: -.03em; }
+  .p-testa .stato { display: inline-block; margin-top: 12px; }
+  .p-intro { margin: 16px 0 0; max-width: 62ch; }
+  .p-testa .etichette { margin-top: 18px; padding-top: 0; }
+  .figura { margin: 0; }
+  .figura a { display: block; border-radius: 12px; overflow: hidden; border: 1px solid var(--linea); background: var(--tenue); cursor: zoom-in; }
+  .figura img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: var(--tenue); }
+  .p-testa .figura img { object-fit: cover; }
+  .figura figcaption { margin-top: 8px; font-size: .8125rem; color: var(--grigio); line-height: 1.5; }
+
+  /* Il mio contributo */
+  .p-ruolo {
+    margin-top: 20px; padding: 20px clamp(20px, 3.5vw, 40px); border-radius: 14px;
+    background: #E3F5FD; border: 1px solid #C3E9FA;
+  }
+  .p-etichetta { display: block; margin-bottom: 6px; font-size: .8125rem; font-weight: 700; color: var(--blu); letter-spacing: .02em; }
+  .p-ruolo p { margin: 0; max-width: 80ch; }
+
+  /* Approfondimento: un passo per riga, immagine alternata a destra e a sinistra */
+  .p-sezione-titolo { margin: clamp(48px, 7vw, 80px) 0 8px; font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .passi { display: grid; gap: clamp(28px, 4vw, 48px); margin-top: 24px; }
+  .passo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px 48px; align-items: center; }
+  .passo:nth-child(even) .figura { order: -1; }
+  .passo h3 { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; font-size: 1.2rem; }
+  .numero-passo {
+    flex: none; display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--tenue); color: var(--blu); font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .passo p { margin: 0 0 .9em; }
+  .passo p:last-child { margin-bottom: 0; }
+  @media (max-width: 820px) {
+    .p-testa, .passo { grid-template-columns: minmax(0, 1fr); }
+    .p-testa .figura { order: -1; }
+    .passo:nth-child(even) .figura { order: 0; }
+  }
+
+  /* Risultati: chiusura in evidenza */
+  .p-risultati {
+    margin-top: clamp(48px, 7vw, 80px); padding: clamp(24px, 4vw, 40px); border-radius: 16px;
+    background: var(--blu); color: #DCE6F2;
+  }
+  .p-risultati .p-etichetta { color: var(--azzurro); }
+  .p-risultati p { margin: 0 0 .9em; max-width: 80ch; font-size: 1.0625rem; }
+  .p-risultati p:last-child { margin-bottom: 0; }
+
+  /* Struttura semplice, per i progetti senza sezioni */
+  .p-testo { max-width: 72ch; }
+  .p-testo h2 { font-size: 1.125rem; margin: 36px 0 8px; }
+  .p-testo p { margin: 0 0 1em; }
+
+  .dettaglio > h2.p-sezione-titolo + .video { margin-top: 16px; }
+  .galleria { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: 24px 16px; margin-top: 16px; }
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0B1626; margin-top: 16px; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .collegamenti { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+  /* Scelta della lingua al primo accesso */
+  dialog#scelta {
+    position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+    margin: 0; padding: 0; border: 0; background: var(--sfondo); color: var(--titolo);
+  }
+  dialog#scelta::backdrop { background: var(--sfondo); }
+  dialog#scelta[open] { display: grid; place-items: center; }
+  .scelta-box { text-align: center; padding: 24px; }
+  .scelta-box img { width: 72px; height: 72px; display: block; margin: 0 auto 28px; border-radius: 12px; }
+  .scelta-box img.tonda { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; box-shadow: 0 0 0 6px var(--superficie), 0 0 0 7px var(--linea); }
+  .scelta-box p { margin: 0 0 4px; color: var(--grigio); }
+  .scelta-box .scelta-btn { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+  .scelta-box button {
+    min-width: 150px; min-height: 52px; border-radius: 999px; border: 1px solid var(--linea); background: var(--superficie);
+    color: var(--titolo); font: inherit; font-weight: 600; font-size: 1.0625rem; cursor: pointer;
+  }
+  .scelta-box button:hover { border-color: var(--blu); }
+
+  /* Consenso alle statistiche */
+  .consenso {
+    position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); transform: translateX(-50%);
+    width: min(640px, calc(100% - 24px)); z-index: 20;
+    background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 16px 18px;
+    box-shadow: 0 18px 40px -20px rgba(16, 44, 83, .45);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; font-size: .875rem;
+  }
+  .consenso p { margin: 0; flex: 1 1 280px; }
+  .consenso .azioni-consenso { display: flex; gap: 8px; }
+  .consenso button {
+    min-height: 40px; padding: 8px 16px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--linea); background: var(--superficie); color: var(--titolo);
+  }
+  .consenso button.si { background: var(--blu); color: #fff; border-color: var(--blu); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<header class="testa" id="testa">
+  <div class="contenitore">
+    <a class="logo" id="logo" href="#"></a>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+    <div class="lingua" id="lingua" role="group" aria-label="Language">
+      <button type="button" data-l="it" aria-pressed="false">IT</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="hamb" id="apri-menu" type="button" aria-controls="menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5h18M3 12h18M3 17.5h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<dialog id="menu">
+  <div class="menu-testa">
+    <button class="hamb" id="chiudi-menu" type="button" style="display:grid">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+  <nav class="menu-voci" id="menu-voci"></nav>
+</dialog>
+
+<main id="pagina"></main>
+
+<div class="contenitore"><footer class="piede" id="piede"></footer></div>
+
+<dialog id="scelta" aria-label="Lingua / Language">
+  <div class="scelta-box">
+    <img id="scelta-img" src="favicon.png" alt="">
+    <p>Scegli la lingua</p>
+    <p>Choose your language</p>
+    <div class="scelta-btn">
+      <button type="button" data-l="it">Italiano</button>
+      <button type="button" data-l="en">English</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="consenso" id="consenso" hidden>
+  <p id="consenso-testo"></p>
+  <div class="azioni-consenso">
+    <button type="button" id="consenso-no"></button>
+    <button type="button" class="si" id="consenso-si"></button>
+  </div>
+</div>
+
+<script>
+/* ========== Da qui in giù non serve toccare niente ========== */
+
+const T = {
+  progetti:   { it: "Progetti", en: "Projects" },
+  competenze: { it: "Competenze", en: "Skills" },
+  formazione: { it: "Formazione", en: "Education" },
+  chi:        { it: "Chi sono", en: "About" },
+  contatti:   { it: "Contatti", en: "Contact" },
+  lingue:     { it: "Lingue", en: "Languages" },
+  scaricaCV:  { it: "Scarica il CV", en: "Download CV" },
+  indietro:   { it: "Tutti i progetti", en: "All projects" },
+  panoramica: { it: "Panoramica", en: "Overview" },
+  problema:   { it: "Il problema", en: "The problem" },
+  contributo: { it: "Il mio contributo", en: "My contribution" },
+  approfondimento: { it: "Approfondimento tecnico", en: "Technical deep dive" },
+  risultati:  { it: "Risultati", en: "Results" },
+  strumenti:  { it: "Strumenti", en: "Tools" },
+  immagini:   { it: "Immagini", en: "Images" },
+  video:      { it: "Video", en: "Video" },
+  foto:       { it: "Le mie fotografie", en: "My photography" },
+  telefono:   { it: "Telefono", en: "Phone" },
+  apriMenu:   { it: "Apri menu", en: "Open menu" },
+  chiudiMenu: { it: "Chiudi menu", en: "Close menu" },
+  nonTrovato: { it: "Progetto non trovato.", en: "Project not found." },
+  privacy:    { it: "Preferenze statistiche", en: "Analytics preferences" },
+  consenso: {
+    it: "Uso Google Analytics per sapere in forma anonima da quali paesi viene visitato il sito. Lo attivo solo se accetti.",
+    en: "I use Google Analytics to see, anonymously, which countries visitors come from. It only runs if you accept.",
+  },
+  accetta:    { it: "Accetta", en: "Accept" },
+  rifiuta:    { it: "No, grazie", en: "No, thanks" },
+};
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, testo) => { const e = document.createElement(tag); if (cls) e.className = cls; if (testo != null) e.textContent = testo; return e; };
+const memoria = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+
+/* Lingua: ?lang=it|en nell'indirizzo, poi la scelta salvata, altrimenti si chiede */
+let lingua = null;
+const daIndirizzo = new URLSearchParams(location.search).get("lang");
+if (daIndirizzo === "it" || daIndirizzo === "en") { lingua = daIndirizzo; memoria.set("lingua", lingua); }
+else if (memoria.get("lingua") === "it" || memoria.get("lingua") === "en") lingua = memoria.get("lingua");
+const primaVisita = !lingua;
+if (primaVisita) lingua = (navigator.language || "").toLowerCase().startsWith("it") ? "it" : "en";
+
+const t = (v) => {
+  if (v == null) return "";
+  if (typeof v === "string") return v;
+  return v[lingua] || v.en || v.it || "";
+};
+
+function impostaLingua(l, salva = true) {
+  lingua = l; if (salva) memoria.set("lingua", l);
+  document.documentElement.lang = l;
+  document.querySelectorAll("#lingua button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === l)));
+  costruisciNav();
+  mostra(true);
+  aggiornaConsenso();
+}
+
+/* Navigazione */
+const SEZIONI = ["progetti", "competenze", "formazione", "chi", "contatti"];
+function costruisciNav() {
+  $("logo").textContent = SITO.nome;
+  const nav = $("nav"), voci = $("menu-voci");
+  nav.replaceChildren(); voci.replaceChildren();
+  SEZIONI.forEach(id => {
+    [nav, voci].forEach(box => {
+      const b = el("button", null, t(T[id])); b.type = "button";
+      b.addEventListener("click", () => vaiA(id));
+      box.append(b);
+    });
+  });
+  $("apri-menu").setAttribute("aria-label", t(T.apriMenu));
+  $("chiudi-menu").setAttribute("aria-label", t(T.chiudiMenu));
+}
+function vaiA(id) {
+  if (menu.open) menu.close();
+  const scorri = () => { const s = $(id); if (s) s.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); };
+  if (location.hash.startsWith("#/")) { history.pushState(null, "", location.pathname + location.search); mostra(); requestAnimationFrame(scorri); }
+  else scorri();
+}
+const menu = $("menu");
+$("apri-menu").addEventListener("click", () => { menu.showModal(); $("apri-menu").setAttribute("aria-expanded", "true"); });
+$("chiudi-menu").addEventListener("click", () => menu.close());
+menu.addEventListener("close", () => $("apri-menu").setAttribute("aria-expanded", "false"));
+$("logo").addEventListener("click", (e) => { e.preventDefault(); history.pushState(null, "", location.pathname + location.search); mostra(); scrollTo(0, 0); });
+document.querySelectorAll("#lingua button").forEach(b => b.addEventListener("click", () => impostaLingua(b.dataset.l)));
+addEventListener("scroll", () => $("testa").classList.toggle("staccata", scrollY > 8), { passive: true });
+
+/* Icone */
+const ICONE = {
+  scarica: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>',
+  freccia: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>',
+  indietro: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>',
+};
+function bottone(testo, href, primario, icona, esterno) {
+  const a = el("a", "btn" + (primario ? " primario" : ""));
+  a.href = href; a.innerHTML = ICONE[icona] || ""; a.append(document.createTextNode(testo));
+  if (esterno) { a.target = "_blank"; a.rel = "noopener"; }
+  return a;
+}
+
+/* Pagine */
+let ultimaRotta = null;
+function mostra(forza) {
+  if (!lingua) return;
+  const rottaAttuale = location.hash.startsWith("#/") ? location.hash : "";
+  if (!forza && rottaAttuale === ultimaRotta) return;
+  ultimaRotta = rottaAttuale;
+  const box = $("pagina");
+  box.replaceChildren();
+  const rotta = location.hash.match(/^#\/p\/(.+)$/);
+  if (rotta) paginaProgetto(box, decodeURIComponent(rotta[1]));
+  else paginaPrincipale(box);
+  piede();
+  traccia();
+}
+addEventListener("hashchange", () => { const prima = ultimaRotta; mostra(); if (ultimaRotta !== prima) scrollTo(0, 0); });
+addEventListener("popstate", () => mostra());
+
+function paginaPrincipale(box) {
+  document.title = `${SITO.nome} | Electronics Engineering`;
+  const c = el("div", "contenitore");
+
+  const ap = el("section", "apertura");
+  const testoAp = el("div", "apertura-testo");
+  testoAp.append(el("h1", null, SITO.nome), el("p", "ruolo", t(PROFILO.ruolo)));
+  if (t(PROFILO.intro)) testoAp.append(el("p", "intro", t(PROFILO.intro)));
+  const az = el("div", "azioni");
+  if (t(SITO.cv)) az.append(bottone(t(T.scaricaCV), t(SITO.cv), true, "scarica"));
+  if (SITO.linkedin) az.append(bottone("LinkedIn", SITO.linkedin, false, "freccia", true));
+  if (SITO.github) az.append(bottone("GitHub", SITO.github, false, "freccia", true));
+  if (SITO.email) az.append(bottone("Email", `mailto:${SITO.email}`, false));
+  testoAp.append(az);
+  ap.append(testoAp);
+  if (SITO.foto) {
+    const cornice = el("div", "ritratto");
+    const img = el("img"); img.src = SITO.foto; img.alt = SITO.nome; img.decoding = "async";
+    img.addEventListener("error", () => { cornice.remove(); ap.classList.add("senza-foto"); });
+    cornice.append(img); ap.append(cornice);
+  } else ap.classList.add("senza-foto");
+  c.append(ap);
+
+  // Progetti
+  const sp = blocco("progetti");
+  const griglia = el("div", "progetti");
+  PROGETTI.forEach((p, i) => griglia.append(scheda(p, i)));
+  sp.append(griglia);
+  c.append(sp);
+
+  // Competenze
+  const sc = blocco("competenze");
+  const gr = el("div", "gruppi");
+  COMPETENZE.forEach(g => {
+    const d = el("div"); d.append(el("h3", null, t(g.gruppo)));
+    const ul = el("ul"); g.voci.forEach(v => ul.append(el("li", null, t(v))));
+    d.append(ul); gr.append(d);
+  });
+  sc.append(gr);
+  c.append(sc);
+
+  // Formazione e lingue
+  const sf = blocco("formazione");
+  const lista = el("div", "elenco");
+  FORMAZIONE.forEach(f => {
+    const v = el("div", "voce");
+    v.append(el("div", "quando", t(f.periodo)));
+    const d = el("div"); d.append(el("h3", null, t(f.titolo)), el("p", null, f.ente));
+    if (t(f.nota)) d.append(el("p", "contesto", t(f.nota)));
+    v.append(d); lista.append(v);
+  });
+  const vl = el("div", "voce");
+  vl.append(el("div", "quando", t(T.lingue)));
+  const dl = el("div");
+  LINGUE.forEach(l => { const p = el("p"); const s = el("strong", null, t(l.lingua)); s.style.color = "var(--titolo)"; s.style.fontWeight = "600"; p.append(s, document.createTextNode(`: ${t(l.livello)}`)); dl.append(p); });
+  vl.append(dl); lista.append(vl);
+  sf.append(lista);
+  c.append(sf);
+
+  // Chi sono
+  const sa = blocco("chi");
+  sa.classList.add("chi");
+  sa.append(el("p", null, t(PROFILO.chiSono)));
+  if (SITO.fotografia) { const az2 = el("div", "azioni"); az2.append(bottone(t(T.foto), SITO.fotografia, false, "freccia", true)); sa.append(az2); }
+  c.append(sa);
+
+  // Contatti
+  const sk = blocco("contatti");
+  const d = el("dl", "contatti");
+  const riga = (et, testo, href, est) => {
+    const w = el("div"); const a = el("a", null, testo); a.href = href;
+    if (est) { a.target = "_blank"; a.rel = "noopener"; }
+    const dd = el("dd"); dd.append(a); w.append(el("dt", null, et), dd); d.append(w);
+  };
+  if (SITO.email) riga("Email", SITO.email, `mailto:${SITO.email}`);
+  if (SITO.linkedin) riga("LinkedIn", SITO.linkedin.replace(/^https?:\/\/(www\.)?/, ""), SITO.linkedin, true);
+  if (SITO.github) riga("GitHub", SITO.github.replace(/^https?:\/\//, ""), SITO.github, true);
+  if (SITO.telefono) riga(t(T.telefono), SITO.telefono, `tel:${SITO.telefono.replace(/[^\d+]/g, "")}`);
+  sk.append(d);
+  c.append(sk);
+
+  box.append(c);
+}
+
+function blocco(id) {
+  const s = el("section", "blocco"); s.id = id;
+  s.setAttribute("aria-labelledby", id + "-titolo");
+  const h = el("h2", null, t(T[id])); h.id = id + "-titolo";
+  s.append(h);
+  return s;
+}
+
+function scheda(p, i) {
+  const a = el("a", "scheda"); a.href = `#/p/${encodeURIComponent(p.id)}`;
+  const cop = el("div", "copertina");
+  const cop0 = immagineCopertina(p);
+  if (cop0) {
+    const img = el("img"); img.src = cop0.file; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    img.addEventListener("error", () => img.remove());
+    cop.append(img);
+  }
+  else cop.append(el("span", "numero", String(i + 1).padStart(2, "0")));
+  const corpo = el("div", "scheda-corpo");
+  if (t(p.stato)) corpo.append(el("span", "stato", t(p.stato)));
+  corpo.append(el("h3", null, t(p.titolo)), el("p", "contesto", t(p.contesto)), el("p", "sintesi", t(p.sintesi)));
+  if (p.strumenti && p.strumenti.length) {
+    const ul = el("ul", "etichette");
+    p.strumenti.slice(0, 5).forEach(s => ul.append(el("li", null, t(s))));
+    corpo.append(ul);
+  }
+  a.append(cop, corpo);
+  return a;
+}
+
+function paginaProgetto(box, id) {
+  const p = PROGETTI.find(x => x.id === id);
+  const c = el("article", "contenitore dettaglio");
+  const back = el("a", "indietro"); back.href = "#progetti";
+  back.innerHTML = ICONE.indietro; back.append(document.createTextNode(t(T.indietro)));
+  back.addEventListener("click", (e) => { e.preventDefault(); vaiA("progetti"); });
+  c.append(back);
+  if (!p) { c.append(el("p", null, t(T.nonTrovato))); box.append(c); return; }
+  document.title = `${t(p.titolo)} | ${SITO.nome}`;
+
+  const immagini = elencoImmagini(p);
+  const copertina = immagineCopertina(p);
+
+  // Testa: contesto, titolo, introduzione, etichette e immagine principale
+  const testa = el("header", "p-testa");
+  const sx = el("div");
+  sx.append(el("p", "p-contesto", t(p.contesto)), el("h1", null, t(p.titolo)));
+  if (t(p.stato)) sx.append(el("span", "stato", t(p.stato)));
+  const intro = t(p.intro) || (p.sezioni ? "" : t(p.descrizione));
+  if (intro) paragrafi(intro).forEach(par => sx.append(el("p", "p-intro", par)));
+  if (p.strumenti && p.strumenti.length) {
+    const ul = el("ul", "etichette");
+    p.strumenti.forEach(s => ul.append(el("li", null, t(s))));
+    sx.append(ul);
+  }
+  testa.append(sx);
+  if (copertina) testa.append(figura(copertina, t(p.titolo), true, () => testa.classList.add("senza-immagine")));
+  else testa.classList.add("senza-immagine");
+  c.append(testa);
+
+  // Il mio contributo
+  const ruolo = t(p.ruolo) || t(p.contributo);
+  if (ruolo) {
+    const r = el("section", "p-ruolo");
+    r.append(el("span", "p-etichetta", t(T.contributo)));
+    paragrafi(ruolo).forEach(par => r.append(el("p", null, par)));
+    c.append(r);
+  }
+
+  // Problema (se scritto a parte)
+  if (t(p.problema)) {
+    const pt = el("div", "p-testo");
+    pt.append(el("h2", null, t(T.problema)));
+    paragrafi(t(p.problema)).forEach(par => pt.append(el("p", null, par)));
+    c.append(pt);
+  }
+
+  // Approfondimento: le sezioni, ognuna con la sua immagine
+  if (p.sezioni && p.sezioni.length) {
+    c.append(el("h2", "p-sezione-titolo", t(T.approfondimento)));
+    const passi = el("div", "passi");
+    p.sezioni.forEach((s, i) => {
+      const riga = el("section", "passo");
+      const testo = el("div");
+      const h = el("h3");
+      h.append(el("span", "numero-passo", String(i + 1).padStart(2, "0")), document.createTextNode(t(s.titolo)));
+      testo.append(h);
+      paragrafi(t(s.testo)).forEach(par => testo.append(el("p", null, par)));
+      riga.append(testo);
+      if (s.immagine) riga.append(figura(normalizza(s.immagine), t(s.titolo)));
+      else riga.style.gridTemplateColumns = "minmax(0, 1fr)";
+      passi.append(riga);
+    });
+    c.append(passi);
+  }
+
+  // Risultati
+  if (t(p.risultati)) {
+    const r = el("section", "p-risultati");
+    r.append(el("span", "p-etichetta", t(T.risultati)));
+    paragrafi(t(p.risultati)).forEach(par => r.append(el("p", null, par)));
+    c.append(r);
+  }
+
+  // Video
+  const indirizzoVideo = incorporaVideo(p.video);
+  if (indirizzoVideo) {
+    c.append(el("h2", "p-sezione-titolo", t(T.video)));
+    const v = el("div", "video");
+    const f = el("iframe");
+    f.src = indirizzoVideo; f.title = `${t(p.titolo)}, video`; f.loading = "lazy";
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+    v.append(f); c.append(v);
+  }
+
+  // Altre immagini, se ce ne sono oltre alla copertina
+  const altre = immagini.filter(x => !copertina || x.file !== copertina.file);
+  if (altre.length) {
+    c.append(el("h2", "p-sezione-titolo", t(T.immagini)));
+    const g = el("div", "galleria");
+    altre.forEach(x => g.append(figura(x, t(p.titolo))));
+    c.append(g);
+  }
+
+  if (p.link && p.link.length) {
+    const lk = el("div", "collegamenti");
+    p.link.forEach(l => lk.append(bottone(t(l.testo), l.url, false, "freccia", true)));
+    c.append(lk);
+  }
+  box.append(c);
+}
+
+function paragrafi(testo) { return String(testo).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean); }
+function normalizza(x) { return typeof x === "string" ? { file: x } : x; }
+function elencoImmagini(p) { return (p.immagini || []).map(normalizza); }
+function immagineCopertina(p) { return p.copertina ? normalizza(p.copertina) : elencoImmagini(p)[0] || null; }
+function figura(x, alt, subito, seErrore) {
+  const fig = el("figure", "figura");
+  const a = el("a"); a.href = x.file; a.target = "_blank"; a.rel = "noopener";
+  const img = el("img"); img.src = x.file; img.alt = t(x.testo) || alt || "";
+  img.loading = subito ? "eager" : "lazy"; img.decoding = "async";
+  img.addEventListener("error", () => { fig.remove(); if (seErrore) seErrore(); });
+  a.append(img); fig.append(a);
+  if (t(x.testo)) fig.append(el("figcaption", null, t(x.testo)));
+  return fig;
+}
+
+function incorporaVideo(u) {
+  if (!u) return "";
+  let m = u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
+  if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  m = u.match(/drive\.google\.com\/.*[?&]id=([^&#]+)/);
+  if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  m = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  if (m) return `https://www.youtube-nocookie.com/embed/${m[1]}`;
+  return "";
+}
+
+function piede() {
+  const f = $("piede"); f.replaceChildren();
+  f.append(el("span", null, `© ${new Date().getFullYear()} ${SITO.nome}`));
+  if (SITO.googleAnalytics) {
+    const b = el("button", null, t(T.privacy)); b.type = "button";
+    b.addEventListener("click", () => { memoria.set("statistiche", ""); aggiornaConsenso(true); });
+    f.append(b);
+  }
+}
+
+/* Google Analytics: si carica solo dopo il consenso */
+let gaAttivo = false;
+function aggiornaConsenso(forza) {
+  const box = $("consenso");
+  if (!SITO.googleAnalytics || !lingua || $("scelta").open) { box.hidden = true; return; }
+  $("consenso-testo").textContent = t(T.consenso);
+  $("consenso-si").textContent = t(T.accetta);
+  $("consenso-no").textContent = t(T.rifiuta);
+  const scelta = memoria.get("statistiche");
+  if (scelta === "si") { box.hidden = true; avviaGA(); return; }
+  box.hidden = scelta === "no" && !forza ? true : !(forza || !scelta);
+}
+$("consenso-si").addEventListener("click", () => { memoria.set("statistiche", "si"); $("consenso").hidden = true; avviaGA(); });
+$("consenso-no").addEventListener("click", () => { memoria.set("statistiche", "no"); $("consenso").hidden = true; });
+
+function avviaGA() {
+  if (gaAttivo || !SITO.googleAnalytics) return;
+  gaAttivo = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", SITO.googleAnalytics, { send_page_view: false });
+  const s = document.createElement("script");
+  s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(SITO.googleAnalytics)}`;
+  document.head.append(s);
+  traccia();
+}
+function traccia() {
+  if (!gaAttivo || !window.gtag) return;
+  gtag("event", "page_view", { page_location: location.href, page_title: document.title, language: lingua });
+}
+
+/* Avvio */
+const scelta = $("scelta");
+// nel cerchio iniziale uso la versione quadrata; se manca, la foto normale
+[SITO.fotoQuadrata, SITO.foto].filter(Boolean).reduceRight((dopo, file) => () => {
+  const prova = new Image();
+  prova.onload = () => { $("scelta-img").src = file; $("scelta-img").classList.add("tonda"); };
+  prova.onerror = dopo;
+  prova.src = file;
+}, () => {})();
+scelta.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { scelta.close(); impostaLingua(b.dataset.l); }));
+scelta.addEventListener("cancel", (e) => e.preventDefault());
+impostaLingua(lingua, !primaVisita);
+if (primaVisita) { $("consenso").hidden = true; scelta.showModal(); }
+</script>
+</body>
+</html>
