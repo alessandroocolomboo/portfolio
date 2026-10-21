@@ -194,19 +194,64 @@ const PROGETTI = [
     id: "biochip",
     titolo: { it: "Biochip Project", en: "Biochip Project" },
     contesto: { it: "Biochip, team di 5 studenti", en: "Biochip, team of 5 students" },
-    strumenti: ["PCB", "AD8022", "Impedance spectroscopy", "Moku (lock-in)", "Conformal mapping"],
+    strumenti: ["KiCad", "AD8022", "Impedance spectroscopy", "Moku (lock-in)", "Conformal mapping", "PCB"],
     sintesi: {
       it: "Sensore di impedenza per liquidi su PCB con elettrodi interdigitati in oro, validato tra 1 kHz e 1 MHz.",
       en: "PCB-based liquid impedance sensor with gold interdigitated electrodes, validated between 1 kHz and 1 MHz.",
     },
-    descrizione: {
-      it: "Progettazione, realizzazione e caratterizzazione sperimentale di un sensore di impedenza per liquidi su PCB, con elettrodi complanari interdigitali in oro e front-end a transimpedenza (AD8022). La geometria degli elettrodi è stata dimensionata con stima della resistenza della soluzione tramite conformal mapping. La scheda è stata validata con spettroscopia di impedenza tra 1 kHz e 1 MHz con piattaforma Moku (lock-in), misurando acqua deionizzata, acqua di rubinetto e soluzioni saline.",
-      en: "Design, fabrication and experimental characterization of a PCB-based liquid impedance sensor, with gold interdigitated coplanar electrodes and a transimpedance front-end (AD8022). The electrode geometry was sized by estimating the solution resistance through conformal mapping. The board was validated through impedance spectroscopy between 1 kHz and 1 MHz with a Moku platform (lock-in), measuring deionized water, tap water and saline solutions.",
+    copertina: { file: "progetti/biochip/01-scheda.jpg", testo: { it: "La scheda realizzata: elettrodi interdigitati in oro a sinistra, amplificatore a transimpedenza a destra.", en: "The fabricated board: gold interdigitated electrodes on the left, transimpedance amplifier on the right." } },
+    intro: {
+      it: "Un sensore di impedenza per liquidi realizzato su PCB. Due elettrodi interdigitati in oro sono a contatto con il liquido, e un amplificatore a transimpedenza trasforma la corrente che li attraversa in una tensione da misurare. La conducibilità cambia di ordini di grandezza tra acqua deionizzata, di rubinetto e salata: misurando l'impedenza tra 1 kHz e 1 MHz si possono distinguere.",
+      en: "A liquid impedance sensor built on a PCB. Two gold interdigitated electrodes are in contact with the liquid, and a transimpedance amplifier turns the current flowing between them into a measurable voltage. Conductivity changes by orders of magnitude between deionized, tap and salt water: measuring the impedance between 1 kHz and 1 MHz tells them apart.",
     },
-    problema: { it: "", en: "" },
-    contributo: { it: "", en: "" },
-    risultati: { it: "", en: "" },
-    immagini: [],
+    // Il tuo contributo: scrivilo qui in italiano e inglese, compare nel riquadro azzurro.
+    ruolo: { it: "", en: "" },
+    sezioni: [
+      {
+        titolo: { it: "Due geometrie di elettrodi", en: "Two electrode geometries" },
+        testo: {
+          it: "La prima proposta usava due elettrodi rettangolari affiancati (8 × 2 mm, a 0,5 mm di distanza): facili da disegnare e da modellare. Nella seconda siamo passati a elettrodi interdigitati: 6 dita per lato, larghe 200 µm, distanti 200 µm e lunghe 8 mm, al limite di quello che si può produrre.\n\nPiù dita significano più percorsi di corrente in parallelo: a parità di tensione applicata, la resistenza della soluzione scende di oltre dieci volte e la corrente del sensore sale.",
+          en: "The first proposal used two side-by-side rectangular electrodes (8 × 2 mm, 0.5 mm apart): easy to draw and to model. In the second we moved to interdigitated electrodes: 6 fingers per side, 200 µm wide, 200 µm apart and 8 mm long, at the limit of what can be manufactured.\n\nMore fingers mean more parallel current paths: for the same applied voltage, the solution resistance drops by more than ten times and the sensor current rises.",
+        },
+        immagine: { file: "progetti/biochip/02-elettrodi.jpg", testo: { it: "A sinistra gli elettrodi rettangolari della prima proposta, a destra quelli interdigitati della seconda.", en: "Left: the rectangular electrodes of the first proposal. Right: the interdigitated electrodes of the second." } },
+      },
+      {
+        titolo: { it: "Stima dell'impedenza", en: "Impedance estimate" },
+        testo: {
+          it: "Tra elettrodi complanari le linee di campo si curvano dentro il liquido, quindi la formula R = ρl/A non basta: abbiamo stimato la resistenza della soluzione con il conformal mapping, tramite integrali ellittici. Con l'acqua di rubinetto di Milano (700 µS/cm) gli elettrodi interdigitati danno circa 312 Ω, contro 4,1 kΩ di quelli rettangolari.\n\nAll'interfaccia tra elettrodo e liquido si forma anche una capacità di doppio strato: a bassa frequenza domina lei, a frequenze più alte resta il plateau resistivo della soluzione. Per vedere entrambe le zone la misura copre da 1 kHz a 1 MHz.",
+          en: "Between coplanar electrodes the field lines bend into the liquid, so the R = ρl/A formula is not enough: we estimated the solution resistance with conformal mapping, through elliptic integrals. With Milan tap water (700 µS/cm) the interdigitated electrodes give about 312 Ω, against 4.1 kΩ for the rectangular ones.\n\nA double-layer capacitance also forms at the electrode-liquid interface: it dominates at low frequency, while at higher frequencies the resistive plateau of the solution remains. To see both regions, the measurement spans 1 kHz to 1 MHz.",
+        },
+        immagine: { file: { it: "progetti/biochip/03-impedenza-it.png", en: "progetti/biochip/03-impedenza-en.png" }, testo: { it: "Resistenza della soluzione stimata con il conformal mapping per le due geometrie, al variare della conducibilità.", en: "Solution resistance estimated with conformal mapping for both geometries, as conductivity varies." } },
+      },
+      {
+        titolo: { it: "Amplificatore a transimpedenza", en: "Transimpedance amplifier" },
+        testo: {
+          it: "La corrente del sensore entra in un amplificatore a transimpedenza basato sull'AD8022. Il caso peggiore è l'acqua salata: con 50 mV di eccitazione e 31 Ω la corrente arriva a 1,6 mA, quindi per restare entro ±5 V la resistenza di retroazione deve stare sotto 3,1 kΩ. Abbiamo scelto 2,2 kΩ: l'uscita va da 0,35 V con l'acqua di rubinetto a 3,5 V con quella salata.\n\nIl prezzo è l'acqua deionizzata, che dà solo circa 25 µV: per misurarla servono la demodulazione lock-in e tempi di media più lunghi.",
+          en: "The sensor current feeds a transimpedance amplifier based on the AD8022. The worst case is salt water: with 50 mV excitation and 31 Ω the current reaches 1.6 mA, so to stay within ±5 V the feedback resistor must stay below 3.1 kΩ. We chose 2.2 kΩ: the output goes from 0.35 V with tap water to 3.5 V with salt water.\n\nThe price is deionized water, which gives only about 25 µV: measuring it requires lock-in demodulation and longer averaging.",
+        },
+        immagine: { file: "progetti/biochip/04-schema.jpg", testo: { it: "Schema dell'amplificatore a transimpedenza con AD8022 e retroazione da 2,2 kΩ.", en: "Schematic of the AD8022 transimpedance amplifier with 2.2 kΩ feedback." } },
+      },
+      {
+        titolo: { it: "PCB e realizzazione", en: "PCB and fabrication" },
+        testo: {
+          it: "La scheda, disegnata in KiCad, ha a sinistra gli elettrodi in oro, dentro la zona di misura delimitata dal cerchio e dai quattro fori di fissaggio, e a destra l'amplificatore con i condensatori di disaccoppiamento delle due alimentazioni.\n\nLa scheda è stata prodotta e assemblata: la foto in testa alla pagina è quella vera, con i fili di collegamento saldati.",
+          en: "The board, drawn in KiCad, has the gold electrodes on the left, inside the measurement area marked by the circle and the four mounting holes, and on the right the amplifier with the decoupling capacitors for both supplies.\n\nThe board was manufactured and assembled: the photo at the top of the page is the real one, with the connection wires soldered on.",
+        },
+        immagine: { file: "progetti/biochip/05-pcb.jpg", testo: { it: "Layout in KiCad e vista 3D della scheda.", en: "KiCad layout and 3D view of the board." } },
+      },
+      {
+        titolo: { it: "Misure", en: "Measurements" },
+        testo: {
+          it: "La scheda è stata validata con spettroscopia di impedenza da 1 kHz a 1 MHz, usando una piattaforma Moku in modalità lock-in, che separa parte reale e immaginaria del segnale. Il protocollo prevede una misura a vuoto per vedere le capacità parassite, poi acqua deionizzata, acqua di rubinetto e soluzioni saline sempre più concentrate.",
+          en: "The board was validated with impedance spectroscopy from 1 kHz to 1 MHz, using a Moku platform in lock-in mode, which separates the real and imaginary parts of the signal. The protocol includes a measurement with no liquid to see parasitic capacitances, then deionized water, tap water and increasingly concentrated salt solutions.",
+        },
+      },
+    ],
+    risultati: {
+      it: "Una scheda di misura realizzata e funzionante: elettrodi interdigitati in oro progettati con il conformal mapping, un front-end a transimpedenza dimensionato per non saturare con nessuno dei liquidi, e una validazione con spettroscopia di impedenza su acqua deionizzata, di rubinetto e salata.",
+      en: "A working measurement board, built and assembled: gold interdigitated electrodes designed with conformal mapping, a transimpedance front-end sized not to saturate with any of the liquids, and validation by impedance spectroscopy on deionized, tap and salt water.",
+    },
+    video: "",
     link: [],
   },
   {
@@ -805,7 +850,7 @@ function scheda(p, i) {
   const cop = el("div", "copertina");
   const cop0 = immagineCopertina(p);
   if (cop0) {
-    const img = el("img"); img.src = cop0.file; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    const img = el("img"); img.src = t(cop0.file); img.alt = ""; img.loading = "lazy"; img.decoding = "async";
     img.addEventListener("error", () => img.remove());
     cop.append(img);
   }
@@ -930,8 +975,9 @@ function elencoImmagini(p) { return (p.immagini || []).map(normalizza); }
 function immagineCopertina(p) { return p.copertina ? normalizza(p.copertina) : elencoImmagini(p)[0] || null; }
 function figura(x, alt, subito, seErrore) {
   const fig = el("figure", "figura");
-  const a = el("a"); a.href = x.file; a.target = "_blank"; a.rel = "noopener";
-  const img = el("img"); img.src = x.file; img.alt = t(x.testo) || alt || "";
+  const src = t(x.file);
+  const a = el("a"); a.href = src; a.target = "_blank"; a.rel = "noopener";
+  const img = el("img"); img.src = src; img.alt = t(x.testo) || alt || "";
   img.loading = subito ? "eager" : "lazy"; img.decoding = "async";
   img.addEventListener("error", () => { fig.remove(); if (seErrore) seErrore(); });
   a.append(img); fig.append(a);
