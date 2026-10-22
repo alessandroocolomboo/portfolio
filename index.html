@@ -62,8 +62,8 @@ const PROFILO = {
     en: "MSc student in Electronics Engineering at Politecnico di Milano.",
   },
   chiSono: {
-    it: "Sono appassionato di automotive, in particolare del motorsport, e più in generale dei sistemi in cui meccanica ed elettronica lavorano in sinergia. Mi sto avvicinando ai settori di aerospaziale e difesa, anche attraverso la tesi sui display avionici che sto svolgendo; mi interessano molto anche i dispositivi indossabili, su cui ho svolto diversi progetti. Sono disponibile a trasferte e ad esperienze di lavoro all'estero; nel tempo libero mi dedico allo sport, alla fotografia ed ai viaggi.",
-    en: "I am very interested in automotive, especially motorsport, and more broadly in systems in which mechanics and electronics work in synergy. I am moving towards the aerospace and defence sectors, also through my thesis on avionics displays; I am interested also in wearable devices, on which I have carried out several projects. I am available for business travel and work experience abroad; in my free time I enjoy sports, photography and travelling.",
+    it: "Mi interessano i sistemi in cui elettronica e meccanica lavorano insieme, e il motorsport è dove questo si vede di più: il mio progetto di controllo porta un'auto con parametri da Formula 1 su un giro completo di Monza. Con la tesi sui display avionici mi sto avvicinando all'aerospazio e alla difesa, e con il Programma Smart Wearable Technologies ho lavorato a diversi dispositivi indossabili, dalla sonda per occhiali smart al paradenti sensorizzato.\n\nSono disponibile a trasferte e a esperienze di lavoro all'estero. Nel tempo libero faccio sport, viaggio e fotografo, soprattutto il motorsport.",
+    en: "I am drawn to systems where electronics and mechanics work together, and motorsport is where that shows the most: my control project drives a car with Formula 1 parameters around a full lap of Monza. Through my thesis on avionics displays I am moving towards aerospace and defence, and through the Smart Wearable Technologies Programme I have worked on several wearable devices, from a smart-eyewear probe to a sensorized mouthguard.\n\nI am available for business travel and work experience abroad. In my free time I do sport, travel and take photos, mostly of motorsport.",
   },
 };
 
@@ -349,6 +349,79 @@ const PROGETTI = [
     },
     video: "progetti/trajectory-tracking/giro-monza.mp4",
     poster: "progetti/trajectory-tracking/giro-monza-poster.jpg",
+    link: [],
+  },
+  {
+    id: "breast-ultrasound-ai",
+    titolo: { it: "Diagnosi di lesioni al seno da ecografia", en: "Breast Lesion Diagnosis from Ultrasound" },
+    contesto: { it: "Applied AI in Biomedicine, team di 3 studenti", en: "Applied AI in Biomedicine, team of 3 students" },
+    strumenti: ["Python", "PyTorch", "ResNet-50", "DeepLabV3", "Grad-CAM"],
+    sintesi: {
+      it: "Reti neurali che classificano ecografie del seno in sane, benigne e maligne e segmentano le lesioni, confrontando due strategie.",
+      en: "Neural networks that classify breast ultrasound images as normal, benign or malignant and segment the lesions, comparing two strategies.",
+    },
+    copertina: { file: "progetti/breast-ultrasound-ai/01-grad-cam.jpg", testo: { it: "Grad-CAM: le zone dell'ecografia su cui il modello basa la sua decisione.", en: "Grad-CAM: the areas of the ultrasound image the model bases its decision on." } },
+    intro: {
+      it: "L'ecografia è l'esame più diffuso per il seno, ma dipende molto da chi la esegue. L'obiettivo era un sistema di intelligenza artificiale che aiuti il medico: classificare le immagini in sane, con lesione benigna o con lesione maligna, e disegnare il contorno della lesione. La consegna chiedeva due strategie opposte, prima la classificazione e poi la segmentazione o viceversa, e di confrontarle.",
+      en: "Ultrasound is the most widespread breast exam, but it depends heavily on the operator. The goal was an AI system to support the doctor: classify images as normal, benign or malignant, and outline the lesion. The assignment asked for two opposite strategies, classification first then segmentation or the other way round, and for a comparison between them.",
+    },
+    // Il tuo contributo: scrivilo qui in italiano e inglese, compare nel riquadro azzurro.
+    ruolo: { it: "", en: "" },
+    sezioni: [
+      {
+        titolo: { it: "I dati e la divisione per paziente", en: "The data and the split by patient" },
+        testo: {
+          it: "Il dataset contiene 1531 ecografie di 968 pazienti: 460 sane, 706 con lesione benigna e 365 con lesione maligna, ognuna con la maschera della lesione. Molte pazienti hanno più immagini, quindi abbiamo diviso i dati per paziente e non per immagine (80% addestramento, 10% validazione, 10% test): così nessuna immagine del test somiglia a una già vista in addestramento, e i risultati non sono gonfiati.\n\nLe lesioni maligne sono la metà delle benigne. Invece di duplicare o scartare immagini abbiamo usato augmentation, l'accuratezza bilanciata come metrica e una classificazione a due stadi.",
+          en: "The dataset contains 1531 ultrasound images from 968 patients: 460 normal, 706 with a benign lesion and 365 with a malignant one, each with the lesion mask. Many patients have several images, so we split the data by patient rather than by image (80% training, 10% validation, 10% test): this way no test image resembles one already seen in training, and the results are not inflated.\n\nMalignant lesions are half as many as benign ones. Instead of duplicating or discarding images we used augmentation, balanced accuracy as the metric and a two-stage classification.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/02-classi.jpg", testo: { it: "Un esempio per classe: sana, benigna e maligna.", en: "One example per class: normal, benign and malignant." } },
+      },
+      {
+        titolo: { it: "Pre-elaborazione e augmentation", en: "Pre-processing and augmentation" },
+        testo: {
+          it: "Molte ecografie hanno scritte e marcature sovrapposte ai bordi. Ridimensionando a 256 pixel e ritagliando 224 al centro, il modello si concentra sulla zona utile; 224 × 224 è anche la dimensione nativa di ResNet e DeepLabV3, che così usano al meglio i pesi preaddestrati su ImageNet.\n\nIn addestramento ogni immagine viene ribaltata, ruotata e variata in luminosità e contrasto, applicando le stesse trasformazioni geometriche anche alla maschera, con interpolazione nearest-neighbour per non alterarne i valori.",
+          en: "Many ultrasound images have text and markings overlaid at the edges. By resizing to 256 pixels and cropping 224 at the centre, the model focuses on the useful area; 224 × 224 is also the native input size of ResNet and DeepLabV3, which can then make the most of their ImageNet-pretrained weights.\n\nDuring training each image is flipped, rotated and varied in brightness and contrast, applying the same geometric transforms to the mask, with nearest-neighbour interpolation so its values are not altered.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/03-ecografia-scritte.jpg", testo: { it: "Un'ecografia con scritte e marcature: il ritaglio centrale le esclude.", en: "An ultrasound image with text and markings: the centre crop leaves them out." } },
+      },
+      {
+        titolo: { it: "Strategia 1: classificazione a due stadi", en: "Strategy 1: two-stage classification" },
+        testo: {
+          it: "Invece di una sola rete a tre classi abbiamo usato due ResNet-50 preaddestrate e messe a punto sulle ecografie: la prima distingue immagini sane da immagini con lesione, la seconda separa benigne e maligne. L'addestramento usa early stopping e riduzione automatica del learning rate quando la validazione smette di migliorare.\n\nSul test l'accuratezza è del 78% (bilanciata 76,5%), con l'89% di specificità media. Le immagini sane sono riconosciute nell'89% dei casi; il punto debole sono le maligne, riconosciute nel 64%. Il limite della cascata è che, se il primo stadio sbaglia, il secondo non viene nemmeno eseguito.",
+          en: "Instead of a single three-class network we used two pretrained ResNet-50s fine-tuned on the ultrasound images: the first tells normal images from images with a lesion, the second separates benign and malignant. Training uses early stopping and automatic learning-rate reduction when validation stops improving.\n\nOn the test set accuracy is 78% (76.5% balanced), with 89% mean specificity. Normal images are recognized 89% of the time; the weak point is malignant lesions, recognized 64% of the time. The limit of the cascade is that if the first stage is wrong, the second is not even run.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/04-matrice-task1.jpg", testo: { it: "Matrice di confusione della classificazione a due stadi sul test (valori in %).", en: "Confusion matrix of the two-stage classification on the test set (values in %)." } },
+      },
+      {
+        titolo: { it: "Segmentazione delle lesioni", en: "Lesion segmentation" },
+        testo: {
+          it: "Per disegnare il contorno delle lesioni abbiamo confrontato tre reti: U-Net, MA-Net e DeepLabV3. DeepLabV3, con le sue convoluzioni dilatate che vedono insieme dettagli e contesto, ha dato i valori più alti sia di Dice sia di IoU.\n\nSulle lesioni benigne e maligne il Dice medio è 0,83 sul test (IoU 0,78). Una piccola elaborazione finale ripulisce le maschere predette, riempiendo i buchi e togliendo le macchie isolate.",
+          en: "To outline the lesions we compared three networks: U-Net, MA-Net and DeepLabV3. DeepLabV3, whose dilated convolutions capture detail and context together, gave the highest Dice and IoU.\n\nOn benign and malignant lesions the mean Dice is 0.83 on the test set (IoU 0.78). A small final processing step cleans the predicted masks, filling holes and removing isolated blobs.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/05-maschere.jpg", testo: { it: "Maschera reale, maschera predetta da DeepLabV3 e maschera ripulita.", en: "True mask, mask predicted by DeepLabV3 and cleaned mask." } },
+      },
+      {
+        titolo: { it: "Strategia 2: prima la maschera, poi la diagnosi", en: "Strategy 2: mask first, diagnosis second" },
+        testo: {
+          it: "Nella seconda strategia DeepLabV3 segmenta tutte le immagini (Dice 0,77 sul test) e una rete convoluzionale classifica solo la zona mascherata come benigna o maligna. Su immagini così semplici una ResNet-50 diventava un collo di bottiglia, quindi abbiamo usato una CNN più piccola addestrata da zero.\n\nI risultati sono simili: accuratezza 78,9% (bilanciata 77,9%), 94,6% di benigne riconosciute ma solo 61,2% di maligne. In più gli errori della segmentazione si propagano: alcune immagini sane sono arrivate al classificatore come se avessero una lesione.",
+          en: "In the second strategy DeepLabV3 segments all images (Dice 0.77 on the test set) and a convolutional network classifies only the masked area as benign or malignant. On such simple images a ResNet-50 became a bottleneck, so we used a smaller CNN trained from scratch.\n\nThe results are similar: 78.9% accuracy (77.9% balanced), 94.6% of benign lesions recognized but only 61.2% of malignant ones. On top of that, segmentation errors propagate: some normal images reached the classifier as if they had a lesion.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/06-matrice-task2.jpg", testo: { it: "Matrice di confusione della seconda strategia, compresi i casi sani passati per errore.", en: "Confusion matrix of the second strategy, including the normal cases passed through by mistake." } },
+      },
+      {
+        titolo: { it: "Dove guarda il modello", en: "Where the model looks" },
+        testo: {
+          it: "Per capire su cosa si basano le decisioni abbiamo usato Grad-CAM, che colora le zone dell'immagine che pesano di più sulla classificazione. Nei casi corretti il modello guarda la lesione; negli errori si vede dove si è confuso.\n\nGrad-CAM ci ha anche mostrato perché serviva il ritaglio centrale: senza, il modello si lasciava influenzare dalle scritte sovrapposte all'ecografia.",
+          en: "To understand what the decisions are based on we used Grad-CAM, which highlights the image areas that weigh most on the classification. In correct cases the model looks at the lesion; in the errors you can see where it got confused.\n\nGrad-CAM also showed us why the centre crop was needed: without it, the model was influenced by the text overlaid on the ultrasound image.",
+        },
+        immagine: { file: "progetti/breast-ultrasound-ai/07-grad-cam-maschere.jpg", testo: { it: "Grad-CAM sulle immagini mascherate della seconda strategia.", en: "Grad-CAM on the masked images of the second strategy." } },
+      },
+    ],
+    risultati: {
+      it: "Due strategie complete, con risultati simili: accuratezza bilanciata del 76,5% per la classificazione a due stadi e del 77,9% per quella sulle maschere, e un Dice di 0,83 nella segmentazione delle lesioni. Preferiamo la prima strategia, perché gli errori si propagano meno e la diagnosi viene fatta sull'ecografia completa. Il limite comune, ed è il dato da migliorare per un uso clinico, è la sensibilità sulle lesioni maligne: tra il 61% e il 64%.",
+      en: "Two complete strategies with similar results: 76.5% balanced accuracy for the two-stage classification and 77.9% for the mask-based one, and a Dice of 0.83 in lesion segmentation. We prefer the first strategy, because errors propagate less and the diagnosis is made on the full ultrasound image. The shared limit, and the figure to improve for clinical use, is sensitivity on malignant lesions: between 61% and 64%.",
+    },
+    video: "",
     link: [],
   },
   {
@@ -1025,7 +1098,7 @@ function paginaPrincipale(box) {
   // Chi sono
   const sa = blocco("chi");
   sa.classList.add("chi");
-  sa.append(el("p", null, t(PROFILO.chiSono)));
+  paragrafi(t(PROFILO.chiSono)).forEach(par => sa.append(el("p", null, par)));
   if (SITO.fotografia) { const az2 = el("div", "azioni"); az2.append(bottone(t(T.foto), SITO.fotografia, false, "freccia", true)); sa.append(az2); }
   c.append(sa);
 
