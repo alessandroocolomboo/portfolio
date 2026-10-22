@@ -54,11 +54,11 @@ const SITO = {
 const PROFILO = {
   // Una riga sotto il ruolo, nell'apertura. Vuoto = non compare.
   intro: {
-    it: "Laureato in Ingegneria Elettronica al Politecnico di Milano nel 2024, laurea magistrale prevista ad aprile 2027. Disponibile per uno stage.",
-    en: "BSc in Electronics Engineering from Politecnico di Milano (2024), MSc expected in April 2027. Available for an internship.",
+    it: "Laurea triennale in Ingegneria Elettronica al Politecnico di Milano nel 2024; laurea magistrale prevista ad aprile 2027.",
+    en: "BSc in Electronics Engineering from Politecnico di Milano (2024); MSc expected in April 2027.",
   },
   ruolo: {
-    it: "Studente di Laurea Magistrale in Electronics Engineering al Politecnico di Milano.",
+    it: "Studente del Master of Science (Laurea Magistrale) in Electronics Engineering al Politecnico di Milano, corso in lingua inglese.",
     en: "MSc student in Electronics Engineering at Politecnico di Milano.",
   },
   chiSono: {
@@ -75,7 +75,7 @@ const PROGRAMMA = {
     it: "Durante la magistrale ho seguito il Programma Interdisciplinare in Smart Wearable Technologies del Politecnico di Milano, costruito insieme a EssilorLuxottica e allo Smart Eyewear Lab, il centro di ricerca congiunto che progetta gli occhiali intelligenti del futuro. Ho completato i 30 CFU di corsi sugli smart wearable richiesti dal Programma, che mi daranno un titolo aggiuntivo alla laurea. L'ologramma, per esempio, è stato ricostruito nel laboratorio dello Smart Eyewear Lab.",
     en: "During my MSc I took part in Politecnico di Milano's Interdisciplinary Programme in Smart Wearable Technologies, built together with EssilorLuxottica and the Smart Eyewear Lab, the joint research centre designing the smart glasses of the future. I completed the 30 ECTS of smart-wearable courses the Programme requires, which will earn me an additional qualification alongside my degree. The hologram, for example, was reconstructed in the Smart Eyewear Lab.",
   },
-  progetti: ["lumos-probe", "computer-generated-hologram", "aegis-cerbero"],
+  progetti: ["lumos-probe", "biochip", "computer-generated-hologram", "aegis-cerbero"],
   link: { it: "https://www.polimi.it/ricerca/partnership-con-le-imprese-jrp/essilorluxottica/programma-interdisciplinare", en: "https://www.polimi.it/en/research/partnerships-with-companies-jrp/essilorluxottica" },
 };
 
@@ -90,9 +90,9 @@ const COMPETENZE = [
 const FORMAZIONE = [
   {
     periodo: { it: "Set 2024 – Apr 2027", en: "Sep 2024 – Apr 2027" },
-    titolo: { it: "Laurea Magistrale in Electronics Engineering", en: "MSc in Electronics Engineering" },
+    titolo: { it: "Master of Science (Laurea Magistrale) in Electronics Engineering", en: "MSc in Electronics Engineering" },
     ente: "Politecnico di Milano",
-    nota: { it: "Esami completati, tesi in corso.", en: "All exams completed, thesis in progress." },
+    nota: { it: "Corso in lingua inglese. Esami completati, tesi in corso.", en: "Taught in English. All exams completed, thesis in progress." },
   },
   {
     periodo: { it: "Set 2021 – Set 2024", en: "Sep 2021 – Sep 2024" },
@@ -104,7 +104,7 @@ const FORMAZIONE = [
 
 const LINGUE = [
   { lingua: { it: "Italiano", en: "Italian" }, livello: { it: "Madrelingua", en: "Native speaker" } },
-  { lingua: { it: "Inglese", en: "English" }, livello: { it: "C1, TOEIC 950/990 (2024)", en: "C1, TOEIC 950/990 (2024)" } },
+  { lingua: { it: "Inglese", en: "English" }, livello: { it: "C1, TOEIC 950/990 (2024); Cambridge B2 First (2021)", en: "C1, TOEIC 950/990 (2024); Cambridge B2 First (2021)" } },
 ];
 
 // Ordine dell'elenco = ordine sul sito.
@@ -279,19 +279,76 @@ const PROGETTI = [
     id: "trajectory-tracking",
     titolo: { it: "Trajectory Tracking Controller", en: "Trajectory Tracking Controller" },
     contesto: { it: "Automation and Control in Autonomous Vehicle, progetto individuale", en: "Automation and Control in Autonomous Vehicle, individual project" },
-    strumenti: ["MATLAB", "Simulink", "Vehicle Dynamics Blockset", "MPC"],
+    strumenti: ["MATLAB", "Simulink", "MPC", "Vehicle Dynamics Blockset", "Optimization"],
     sintesi: {
       it: "Controllore MPC che insegue posizione e velocità di un veicolo con parametri simili a una F1 su un giro di Monza.",
       en: "MPC controller tracking the position and speed of a vehicle with F1-like parameters over a lap of Monza.",
     },
-    descrizione: {
-      it: "Progettazione in MATLAB/Simulink (Vehicle Dynamics Blockset) di un controllore MPC che insegue posizione e velocità di un veicolo con parametri F1-like su un giro completo all'Autodromo di Monza. Ho sviluppato un global planning della racing line, che ottimizza il compromesso lunghezza/curvatura e calcola il profilo di velocità sull'ellisse di aderenza. Ho poi tarato il controllore (tempo di campionamento, orizzonti, pesi) a partire dall'analisi dei dati di simulazione.",
-      en: "Design in MATLAB/Simulink (Vehicle Dynamics Blockset) of an MPC controller that tracks the position and speed of a vehicle with F1-like parameters over a full lap of the Monza circuit. I developed a global planner for the racing line, which optimizes the length/curvature trade-off and computes the speed profile on the friction ellipse. I then tuned the controller (sampling time, horizons, weights) based on the analysis of simulation data.",
+    copertina: { file: "progetti/trajectory-tracking/01-monza.jpg", testo: { it: "Il giro simulato di Monza: traiettoria percorsa e racing line di riferimento.", en: "The simulated lap of Monza: driven trajectory and reference racing line." } },
+    intro: {
+      it: "Un controllore che fa percorrere a un veicolo con parametri da Formula 1 un giro completo di Monza in simulazione, inseguendo sia la traiettoria sia la velocità. Ho generato io il riferimento con un global planner, poi ho progettato e tarato un controllore MPC in MATLAB/Simulink e l'ho validato cercando i difetti del modello.",
+      en: "A controller that drives a vehicle with Formula 1 parameters around a full simulated lap of Monza, tracking both trajectory and speed. I generated the reference myself with a global planner, then designed and tuned an MPC controller in MATLAB/Simulink and validated it by hunting for the model's flaws.",
     },
-    problema: { it: "", en: "" },
-    contributo: { it: "", en: "" },
-    risultati: { it: "", en: "" },
-    immagini: [],
+    ruolo: {
+      it: "Progetto individuale: ho implementato da zero il global planner visto a lezione, scelto e tarato il controllore MPC, costruito la simulazione in Simulink e condotto la validazione.",
+      en: "Individual project: I implemented the global planner from the course from scratch, chose and tuned the MPC controller, built the Simulink simulation and carried out the validation.",
+    },
+    sezioni: [
+      {
+        titolo: { it: "Racing line", en: "Racing line" },
+        testo: {
+          it: "La geometria di Monza arriva dal database TUM, ricampionata ogni metro e con un margine di 0,5 m per lato dai bordi. Per ogni punto l'ottimizzatore sceglie la posizione tra bordo interno ed esterno, minimizzando una somma pesata di lunghezza e curvatura.\n\nI due obiettivi sono in contrasto: la linea più corta costringe a curve strette e lente, quella a curvatura minima permette più velocità ma allunga il percorso. Il compromesso giusto lo decide il tempo sul giro.",
+          en: "Monza's geometry comes from the TUM database, resampled every metre with a 0.5 m margin from each edge. For each point the optimizer picks the position between inner and outer edge, minimizing a weighted sum of length and curvature.\n\nThe two goals conflict: the shortest line forces tight, slow corners, while the minimum-curvature line allows more speed but lengthens the path. Lap time decides the right trade-off.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/02-racing-line.jpg", testo: { it: "Monza con le linee a lunghezza minima, a curvatura minima e quella ottima.", en: "Monza with the minimum-length, minimum-curvature and optimal lines." } },
+      },
+      {
+        titolo: { it: "Profilo di velocità", en: "Speed profile" },
+        testo: {
+          it: "La velocità si calcola sull'ellisse di attrito, con 4 g laterali e in frenata e 10 m/s² in accelerazione, in tre passaggi: prima la velocità massima che la sola accelerazione laterale permette, poi un passaggio in avanti che impone i limiti di accelerazione, infine uno all'indietro che fissa i punti di frenata.\n\nL'algoritmo parte dal punto di curvatura massima, cioè di velocità minima, che garantisce un profilo fattibile. Le resistenze aerodinamiche e di rotolamento sono sottratte in trazione e sommate in frenata.",
+          en: "Speed is computed on the friction ellipse, with 4 g lateral and braking and 10 m/s² traction, in three passes: first the maximum speed allowed by lateral acceleration alone, then a forward pass that enforces the traction limits, and finally a backward pass that sets the braking points.\n\nThe algorithm starts at the point of maximum curvature, i.e. minimum speed, which guarantees a feasible profile. Aerodynamic and rolling resistance are subtracted under traction and added under braking.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/03-profilo-velocita.jpg", testo: { it: "Profili di velocità delle tre linee lungo il giro.", en: "Speed profiles of the three lines along the lap." } },
+      },
+      {
+        titolo: { it: "Scelta dei pesi", en: "Choosing the weights" },
+        testo: {
+          it: "Un anello esterno prova diversi rapporti tra il peso della lunghezza e quello della curvatura: per ognuno calcola la linea, il suo profilo di velocità e il tempo sul giro, e tiene il migliore.\n\nL'ottimo è a λ = 0,020, con un percorso di 5746 m e un tempo stimato di 78,000 s. Sia la linea più corta sia quella a curvatura minima sono più lente.",
+          en: "An outer loop tries different ratios between the length and curvature weights: for each one it computes the line, its speed profile and the lap time, and keeps the best.\n\nThe optimum is at λ = 0.020, with a 5746 m path and an estimated lap time of 78.000 s. Both the shortest and the minimum-curvature lines are slower.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/04-pesi.jpg", testo: { it: "Tempo sul giro stimato al variare del rapporto tra i pesi.", en: "Estimated lap time as the weight ratio changes." } },
+      },
+      {
+        titolo: { it: "Modello e controllore in Simulink", en: "Model and controller in Simulink" },
+        testo: {
+          it: "Il veicolo è un modello 3DOF a doppia carreggiata della Vehicle Dynamics Blockset con parametri da F1: 770 kg, rigidezze di deriva di 150 000 e 180 000 N/rad per assale, sterzo limitato a ±0,26 rad.\n\nL'MPC usa un modello a bicicletta dinamico e calcola sterzo e accelerazione nello stesso problema di ottimizzazione, con vincoli espliciti su entrambi. A lezione l'MPC era citato ma non sviluppato, come chiedeva la consegna: un controllore diverso da quelli visti in aula.",
+          en: "The vehicle is a 3DOF dual-track model from the Vehicle Dynamics Blockset with F1-like parameters: 770 kg, cornering stiffness of 150,000 and 180,000 N/rad per axle, steering limited to ±0.26 rad.\n\nThe MPC uses a dynamic bicycle model and computes steering and acceleration in the same optimization problem, with explicit constraints on both. In class MPC was mentioned but not developed, as the assignment required: a controller different from those seen in class.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/05-simulink.jpg", testo: { it: "L'anello chiuso in Simulink: riferimento, MPC, attuazione e veicolo.", en: "The closed loop in Simulink: reference, MPC, actuation and vehicle." } },
+      },
+      {
+        titolo: { it: "Campionamento e anticipo", en: "Sample time and lookahead" },
+        testo: {
+          it: "La dinamica laterale è più veloce a bassa velocità: in curva, a 30 m/s, il modo più rapido ha una costante di tempo di 35 ms. Con un campionamento a 0,1 s il controllore lavorava al limite di Nyquist e in imbardata nasceva un ciclo limite. Imponendo che il polo discreto non collassi in un solo passo sono sceso a 0,02 s, con un orizzonte di predizione di 0,5 s.\n\nIl blocco MPC non vede il riferimento futuro, quindi gli passo la velocità con 0,20 s di anticipo. Il valore l'ho trovato con una scansione: è il minimo sia dell'errore quadratico medio sia di quello medio assoluto. La stima analitica, provata prima, non era affidabile perché in frenata l'attuazione satura.",
+          en: "Lateral dynamics are faster at low speed: in corners, at 30 m/s, the fastest mode has a 35 ms time constant. With a 0.1 s sample time the controller worked at the Nyquist limit and a yaw limit cycle appeared. Requiring that the discrete pole does not collapse into a single step, I went down to 0.02 s, with a 0.5 s prediction horizon.\n\nThe MPC block does not see the future reference, so I feed it the speed 0.20 s ahead. I found the value with a sweep: it is the minimum of both the RMS and the mean absolute error. The analytical estimate I tried first was unreliable because the actuation saturates under braking.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/06-errore-velocita.jpg", testo: { it: "Errore di velocità lungo il giro nella configurazione finale (RMSE 1,61 m/s).", en: "Speed error along the lap in the final configuration (RMSE 1.61 m/s)." } },
+      },
+      {
+        titolo: { it: "Validazione: difetti trovati e corretti", en: "Validation: flaws found and fixed" },
+        testo: {
+          it: "Nella prima versione i limiti usati per pianificare non erano imposti da nulla nell'anello chiuso. Ho trovato tre difetti. La mappa di attuazione non era l'inversa del motore: comandare +8 m/s² dava 13,74 m/s². L'ho resa esatta semplificando il powertrain.\n\nCorreggendola è emerso un secondo difetto che la prima stava mascherando: il modello del controllore non conteneva le resistenze, e sui rettilinei l'auto si fermava a 94,5 m/s invece di 98. Con una compensazione in avanti l'errore medio di velocità è sceso da −2,49 a −0,21 m/s. Il terzo difetto resta ed è quantificato: il modello lineare dello pneumatico non satura, e l'accelerazione laterale supera del 27% il limite di pianificazione.",
+          en: "In the first version, the limits used for planning were not enforced by anything in the closed loop. I found three flaws. The actuation map was not the inverse of the powertrain: commanding +8 m/s² gave 13.74 m/s². I made it exact by simplifying the powertrain.\n\nFixing it revealed a second flaw that the first one was masking: the controller's model had no resistances, and on the straights the car settled at 94.5 m/s instead of 98. With a feedforward compensation the mean speed error dropped from −2.49 to −0.21 m/s. The third flaw remains and is quantified: the linear tyre model does not saturate, and lateral acceleration exceeds the planning limit by 27%.",
+        },
+        immagine: { file: "progetti/trajectory-tracking/07-velocita.jpg", testo: { it: "Velocità del veicolo e riferimento lungo il giro nella configurazione finale.", en: "Vehicle speed and reference along the lap in the final configuration." } },
+      },
+    ],
+    risultati: {
+      it: "Giro completo in 78,45 s contro i 78,00 s stimati dal planner, uno scarto dello 0,57%. Deviazione laterale media (RMSE) di 0,18 m, errore di velocità RMSE di 1,61 m/s e velocità massima di 98 m/s (353 km/h), come pianificato. Il residuo noto è l'accelerazione laterale oltre il limite, dovuta allo pneumatico lineare: la mappa saturata per correggerlo è pronta ma non ancora integrata.",
+      en: "Full lap in 78.45 s against the 78.00 s estimated by the planner, a 0.57% gap. Lateral deviation RMSE of 0.18 m, speed error RMSE of 1.61 m/s and top speed of 98 m/s (353 km/h), as planned. The known residual is lateral acceleration above the limit, due to the linear tyre: the saturated map to fix it is ready but not yet integrated.",
+    },
+    video: "progetti/trajectory-tracking/giro-monza.mp4",
+    poster: "progetti/trajectory-tracking/giro-monza-poster.jpg",
     link: [],
   },
   {
@@ -671,7 +728,7 @@ const PROGETTI = [
   .dettaglio > h2.p-sezione-titolo + .video { margin-top: 16px; }
   .galleria { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: 24px 16px; margin-top: 16px; }
   .video { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0B1626; margin-top: 16px; }
-  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: contain; background: #0B1626; }
   .collegamenti { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 
   /* Scelta della lingua al primo accesso */
@@ -883,8 +940,13 @@ function mostra(forza) {
   piede();
   traccia();
 }
-addEventListener("hashchange", () => { const prima = ultimaRotta; mostra(); if (ultimaRotta !== prima) scrollTo(0, 0); });
-addEventListener("popstate", () => mostra());
+function cambiaRotta() {
+  const prima = ultimaRotta;
+  mostra();
+  if (ultimaRotta !== prima && ultimaRotta.startsWith("#/")) scrollTo(0, 0);
+}
+addEventListener("hashchange", cambiaRotta);
+addEventListener("popstate", cambiaRotta);
 
 function paginaPrincipale(box) {
   document.title = `${SITO.nome} | Electronics Engineering`;
@@ -1090,6 +1152,15 @@ function paginaProgetto(box, id) {
   }
 
   // Video
+  if (p.video && /\.mp4($|\?)/i.test(p.video)) {
+    c.append(el("h2", "p-sezione-titolo", t(T.video)));
+    const v = el("div", "video");
+    const vid = el("video");
+    vid.src = p.video; vid.controls = true; vid.playsInline = true; vid.preload = "metadata"; vid.muted = true;
+    if (p.poster) vid.poster = p.poster;
+    vid.setAttribute("aria-label", `${t(p.titolo)}, video`);
+    v.append(vid); c.append(v);
+  }
   const indirizzoVideo = incorporaVideo(p.video);
   if (indirizzoVideo) {
     c.append(el("h2", "p-sezione-titolo", t(T.video)));
