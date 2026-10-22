@@ -52,6 +52,11 @@ const SITO = {
 };
 
 const PROFILO = {
+  // Una riga sotto il ruolo, nell'apertura. Vuoto = non compare.
+  intro: {
+    it: "Laureato in Ingegneria Elettronica al Politecnico di Milano nel 2024, laurea magistrale prevista ad aprile 2027. Disponibile per uno stage.",
+    en: "BSc in Electronics Engineering from Politecnico di Milano (2024), MSc expected in April 2027. Available for an internship.",
+  },
   ruolo: {
     it: "Studente di Laurea Magistrale in Electronics Engineering al Politecnico di Milano.",
     en: "MSc student in Electronics Engineering at Politecnico di Milano.",
@@ -60,6 +65,18 @@ const PROFILO = {
     it: "Sono appassionato di automotive, in particolare del motorsport, e più in generale dei sistemi in cui meccanica ed elettronica lavorano in sinergia. Mi sto avvicinando ai settori di aerospaziale e difesa, anche attraverso la tesi sui display avionici che sto svolgendo, e mi interessano i dispositivi indossabili, su cui ho svolto diversi progetti. Sono disponibile a trasferte e ad esperienze di lavoro all'estero; nel tempo libero mi dedico allo sport, alla fotografia ed ai viaggi.",
     en: "I am very interested in automotive, especially motorsport, and more broadly in systems in which mechanics and electronics work in synergy. I am moving towards the aerospace and defence sectors, also through my thesis on avionics displays, and I am interested in wearable devices, on which I have carried out several projects. I am available for business travel and work experience abroad; in my free time I enjoy sports, photography and travelling.",
   },
+};
+
+// Riquadro in home, prima dei progetti. Per toglierlo: const PROGRAMMA = null;
+const PROGRAMMA = {
+  etichetta: { it: "Percorso aggiuntivo", en: "Additional programme" },
+  titolo: { it: "Programma Interdisciplinare in Smart Wearable Technologies", en: "Interdisciplinary Programme in Smart Wearable Technologies" },
+  testo: {
+    it: "Durante la magistrale ho seguito il Programma Interdisciplinare in Smart Wearable Technologies del Politecnico di Milano, costruito insieme a EssilorLuxottica e allo Smart Eyewear Lab, il centro di ricerca congiunto che progetta gli occhiali intelligenti del futuro. Ho completato i 30 CFU di corsi sugli smart wearable richiesti dal Programma, che mi daranno un titolo aggiuntivo alla laurea. L'ologramma, per esempio, è stato ricostruito nel laboratorio dello Smart Eyewear Lab.",
+    en: "During my MSc I took part in Politecnico di Milano's Interdisciplinary Programme in Smart Wearable Technologies, built together with EssilorLuxottica and the Smart Eyewear Lab, the joint research centre designing the smart glasses of the future. I completed the 30 ECTS of smart-wearable courses the Programme requires, which will earn me an additional qualification alongside my degree. The hologram, for example, was reconstructed in the Smart Eyewear Lab.",
+  },
+  progetti: ["lumos-probe", "computer-generated-hologram", "aegis-cerbero"],
+  link: { it: "https://www.polimi.it/ricerca/partnership-con-le-imprese-jrp/essilorluxottica/programma-interdisciplinare", en: "https://www.polimi.it/en/research/partnerships-with-companies-jrp/essilorluxottica" },
 };
 
 const COMPETENZE = [
@@ -205,7 +222,7 @@ const PROGETTI = [
       en: "A liquid impedance sensor built on a PCB. Two gold interdigitated electrodes are in contact with the liquid, and a transimpedance amplifier turns the current flowing between them into a measurable voltage. Conductivity changes by orders of magnitude between deionized, tap and salt water: measuring the impedance between 1 kHz and 1 MHz tells them apart.",
     },
     // Il tuo contributo: scrivilo qui in italiano e inglese, compare nel riquadro azzurro.
-        ruolo: {
+    ruolo: {
       it: "Ho partecipato a tutte le fasi del progetto: dimensionamento degli elettrodi e stima dell'impedenza con il conformal mapping, progetto dell'amplificatore a transimpedenza, schema e layout in KiCad, assemblaggio della scheda e misure con il Moku:Go.",
       en: "I took part in every phase of the project: electrode sizing and impedance estimation with conformal mapping, transimpedance amplifier design, schematic and layout in KiCad, board assembly and measurements with the Moku:Go.",
     },
@@ -242,7 +259,7 @@ const PROGETTI = [
         },
         immagine: { file: "progetti/biochip/05-pcb.jpg", testo: { it: "Layout in KiCad e vista 3D della scheda.", en: "KiCad layout and 3D view of the board." } },
       },
-            {
+      {
         titolo: { it: "Misure", en: "Measurements" },
         testo: {
           it: "La scheda è stata validata con spettroscopia di impedenza da 1 kHz a 1 MHz, usando un Moku:Go collegato alla scheda e al portatile. Il protocollo prevede una misura a vuoto per vedere le capacità parassite, poi acqua deionizzata, acqua di rubinetto e soluzioni saline sempre più concentrate.",
@@ -281,38 +298,133 @@ const PROGETTI = [
     id: "computer-generated-hologram",
     titolo: { it: "Computer Generated Hologram", en: "Computer Generated Hologram" },
     contesto: { it: "Analog and Digital Holography, progetto individuale", en: "Analog and Digital Holography, individual project" },
-    strumenti: ["MATLAB", "Gerchberg–Saxton", "520 nm laser", "Optics"],
+    strumenti: ["MATLAB", "Gerchberg–Saxton", "Fourier optics", "520 nm laser", "Optics"],
     sintesi: {
       it: "Ologramma calcolato in MATLAB, stampato su pellicola con stampanti da ufficio e ricostruito con un laser a 520 nm.",
       en: "Hologram computed in MATLAB, printed on film with office printers and reconstructed with a 520 nm laser.",
     },
-    descrizione: {
-      it: "Generazione in MATLAB di un ologramma di ampiezza off-axis a partire da una fase ottimizzata con l'algoritmo di Gerchberg–Saxton. L'ologramma è stato stampato su pellicola trasparente con stampanti da ufficio e ricostruito con un laser a 520 nm in laboratorio (Smart Eyewear Lab – EssilorLuxottica). Ottimizzando risoluzione e angolo off-axis ho ottenuto una ricostruzione nitida. Analizzando i picchi di diffrazione ho poi misurato la risoluzione effettiva delle stampanti confrontando stampa laser e inkjet. Ho infine replicato l'esperimento a casa con un laser da meno di 1 mW, individuando nella collimazione del fascio il limite del setup low-cost.",
-      en: "MATLAB generation of an off-axis amplitude hologram from a phase optimized with the Gerchberg–Saxton algorithm. The hologram was printed on transparent film with office printers and reconstructed with a 520 nm laser in the laboratory (Smart Eyewear Lab – EssilorLuxottica). By optimizing resolution and off-axis angle, I obtained a sharp reconstruction. By analyzing the diffraction peaks, I then measured the effective resolution of the printers, comparing laser and inkjet printing. Finally, I replicated the experiment at home with a sub-1 mW laser, identifying beam collimation as the limit of the low-cost setup.",
+    copertina: { file: "progetti/computer-generated-hologram/01-ricostruzione.jpg", testo: { it: "La ricostruzione migliore in laboratorio: le due stelle ai lati dell'ordine zero.", en: "The best reconstruction in the lab: the two stars on either side of the zero order." } },
+    intro: {
+      it: "Un ologramma generato al computer. Partendo dall'immagine di una stella, un codice MATLAB calcola una figura di interferenza che, stampata su una pellicola trasparente di 1 cm e illuminata con un laser, ricostruisce la stella sul muro. Ho confrontato risoluzioni, angoli e due tipi di stampante, e alla fine ho rifatto l'esperimento a casa.",
+      en: "A computer-generated hologram. Starting from the image of a star, MATLAB code computes an interference pattern that, printed on a 1 cm transparent film and lit with a laser, reconstructs the star on the wall. I compared resolutions, angles and two kinds of printer, and finally repeated the experiment at home.",
     },
-    problema: { it: "", en: "" },
-    contributo: { it: "", en: "" },
-    risultati: { it: "", en: "" },
-    immagini: [],
+    ruolo: {
+      it: "Progetto individuale: ho modificato il codice MATLAB visto a lezione, preparato e stampato gli ologrammi, fatto le prove in laboratorio e a casa e analizzato i risultati.",
+      en: "Individual project: I modified the MATLAB code from the course, prepared and printed the holograms, ran the tests in the lab and at home and analyzed the results.",
+    },
+    sezioni: [
+      {
+        titolo: { it: "Il banco ottico", en: "The optical bench" },
+        testo: {
+          it: "In laboratorio un laser a 520 nm, allargato a un fascio di 1 cm, illumina la pellicola con l'ologramma. Una prima lente ne calcola otticamente la trasformata di Fourier, una seconda la ingrandisce e la proietta sul muro a 2 metri. Gli ologrammi sono stati stampati su pellicola trasparente con una stampante laser da 1200 DPI e una a getto d'inchiostro da 360 DPI.",
+          en: "In the lab, a 520 nm laser expanded to a 1 cm beam lights the film carrying the hologram. A first lens optically computes its Fourier transform, a second one magnifies it and projects it on the wall 2 metres away. The holograms were printed on transparent film with a 1200 DPI laser printer and a 360 DPI inkjet printer.",
+        },
+        immagine: { file: "progetti/computer-generated-hologram/02-laboratorio.jpg", testo: { it: "Il banco ottico nel laboratorio dello Smart Eyewear Lab.", en: "The optical bench in the Smart Eyewear Lab." } },
+      },
+      {
+        titolo: { it: "Dal codice alla figura di interferenza", en: "From code to interference pattern" },
+        testo: {
+          it: "Il codice usa una versione migliorata dell'algoritmo di Gerchberg–Saxton per ottenere un campo di sola fase che, trasformato con Fourier, dà la stella. Questo campo viene fatto interferire con un'onda di riferimento inclinata (off-axis), che sposta l'immagine lontano dall'ordine zero: l'intensità risultante è l'ologramma di ampiezza da stampare.\n\nPrima della stampa ho simulato la ricostruzione con una FFT, raddoppiando la dimensione della matrice per evitare l'aliasing.",
+          en: "The code uses an improved Gerchberg–Saxton algorithm to obtain a phase-only field whose Fourier transform gives the star. This field interferes with a tilted (off-axis) reference wave, which moves the image away from the zero order: the resulting intensity is the amplitude hologram to print.\n\nBefore printing, I simulated the reconstruction with an FFT, doubling the matrix size to avoid aliasing.",
+        },
+        immagine: { file: "progetti/computer-generated-hologram/03-simulazione.jpg", testo: { it: "Figura di interferenza calcolata e ricostruzione simulata in MATLAB.", en: "Computed interference pattern and simulated reconstruction in MATLAB." } },
+      },
+      {
+        titolo: { it: "Risoluzione e angolo", en: "Resolution and angle" },
+        testo: {
+          it: "Ho stampato ologrammi da 100 a 400 pixel per lato, sempre su 1 cm. Più pixel significa pixel più piccoli: l'immagine ricostruita si allarga ed esce dal campo visibile, e la stampante non riesce a riprodurre i dettagli. Il risultato migliore è a 200 × 200 pixel.\n\nPer avvicinare le stelle al centro ho ridotto l'angolo off-axis all'80% della metà del massimo imposto da Nyquist: con questo accorgimento le stelle sono diventate ben visibili.",
+          en: "I printed holograms from 100 to 400 pixels per side, always over 1 cm. More pixels means smaller pixels: the reconstructed image spreads out and leaves the field of view, and the printer cannot reproduce the details. The best result is at 200 × 200 pixels.\n\nTo bring the stars closer to the centre, I reduced the off-axis angle to 80% of half the maximum set by Nyquist: with this change the stars became clearly visible.",
+        },
+        immagine: { file: "progetti/computer-generated-hologram/04-pellicole.jpg", testo: { it: "Le pellicole stampate a diverse risoluzioni, tutte da 1 cm.", en: "The films printed at different resolutions, all 1 cm wide." } },
+      },
+      {
+        titolo: { it: "Stampante laser contro getto d'inchiostro", en: "Laser versus inkjet printer" },
+        testo: {
+          it: "Attorno all'ordine zero compaiono punti simmetrici: sono il segno della trama periodica della stampante. Misurando la loro distanza sul muro e risalendo al piano di Fourier ho calcolato la risoluzione reale di stampa: circa 196 DPI per la laser, contro i 1200 dichiarati, e circa 356 DPI per quella a getto d'inchiostro, in linea con i 360 nominali.\n\nAl microscopio però la getto d'inchiostro spande l'inchiostro tra le frange, mentre la laser le stampa nette: per questo, nonostante la risoluzione più bassa, la laser dà l'ologramma migliore.",
+          en: "Symmetric dots appear around the zero order: they are the signature of the printer's periodic pattern. By measuring their distance on the wall and working back to the Fourier plane, I calculated the real print resolution: about 196 DPI for the laser printer, against the 1200 declared, and about 356 DPI for the inkjet, in line with its nominal 360.\n\nUnder the microscope, however, the inkjet spreads ink between the fringes, while the laser printer prints them sharply: that is why, despite its lower resolution, the laser printer gives the better hologram.",
+        },
+        immagine: { file: "progetti/computer-generated-hologram/05-stampanti.jpg", testo: { it: "Lo stesso ologramma stampato a getto d'inchiostro (sinistra) e laser (destra).", en: "The same hologram printed with an inkjet (left) and a laser printer (right)." } },
+      },
+      {
+        titolo: { it: "Rifarlo a casa", en: "Doing it at home" },
+        testo: {
+          it: "Ho ripetuto l'esperimento a casa con un laser a 650 nm da meno di 1 mW e senza il sistema di lenti del laboratorio, con il muro a 2 metri come campo lontano. Con così poca potenza il fascio resta pieno solo fino a 4–5 mm, quindi illumina una parte piccola dell'ologramma e le stelle si vedevano appena.\n\nInclinando la pellicola, a parità di potenza il fascio ne copre un'area più ampia e la ricostruzione è migliorata in modo evidente: il limite del setup economico era la collimazione, non l'ologramma.",
+          en: "I repeated the experiment at home with a sub-1 mW, 650 nm laser and without the lab's lens system, with the wall 2 metres away as the far field. With so little power the beam stays full only up to 4–5 mm, so it lights a small part of the hologram and the stars were barely visible.\n\nBy tilting the film, the beam covers a wider area at the same power and the reconstruction improved clearly: the limit of the low-cost setup was collimation, not the hologram.",
+        },
+        immagine: { file: "progetti/computer-generated-hologram/06-casa.jpg", testo: { it: "Il setup di casa e la ricostruzione ottenuta inclinando la pellicola.", en: "The home setup and the reconstruction obtained by tilting the film." } },
+      },
+    ],
+    risultati: {
+      it: "Una stella ben visibile con un ologramma da 200 × 200 pixel su 1 cm e angolo off-axis ridotto; la misura della risoluzione reale delle stampanti a partire dai picchi di diffrazione (196 DPI per la laser, 356 per la getto d'inchiostro); e un esperimento replicato a casa con meno di 1 mW, che ha mostrato come il limite sia la collimazione del fascio.",
+      en: "A clearly visible star with a 200 × 200 pixel hologram over 1 cm and a reduced off-axis angle; a measurement of the printers' real resolution from the diffraction peaks (196 DPI for the laser printer, 356 for the inkjet); and an experiment repeated at home with less than 1 mW, which showed that the limit is beam collimation.",
+    },
+    video: "",
     link: [],
   },
   {
     id: "aegis-cerbero",
     titolo: { it: "Aegis Cerbero", en: "Aegis Cerbero" },
     contesto: { it: "Smart Materials for Wearables, team di 4 studenti", en: "Smart Materials for Wearables, team of 4 students" },
-    strumenti: ["Hall sensor", "Bluetooth Low Energy", "MATLAB", "Hydrogel", "BoM"],
+    strumenti: ["Hydrogel", "Electrospinning", "Aptamers", "MATLAB", "Granta", "Hall sensor"],
     sintesi: {
       it: "Concept di paradenti smart che monitora in tempo reale lo stress fisico negli sport da contatto.",
       en: "Concept of a smart mouthguard that monitors physical stress in real time during contact sports.",
     },
-    descrizione: {
-      it: "Concept di un paradenti smart per sport da contatto che monitora lo stress fisico in tempo reale tramite l'alfa-amilasi salivare. Il sistema integra un idrogel magnetico funzionalizzato con aptameri, una membrana elettrofilata in TPU/PEG e un sensore Hall con microcontrollore, che attiva un feedback aptico e trasmette i dati via BLE. Il progetto ha incluso selezione dei materiali, modellazione in MATLAB, analisi dei costi (BoM) e limitazioni.",
-      en: "Concept of a smart mouthguard for contact sports that monitors physical stress in real time through salivary alpha-amylase. The system integrates an aptamer-functionalized magnetic hydrogel, an electrospun TPU/PEG membrane and a Hall sensor with a microcontroller, which triggers haptic feedback and transmits data via BLE. The project included material selection, MATLAB modelling, cost analysis (BoM) and limitations.",
+    copertina: { file: "progetti/aegis-cerbero/01-paradenti-render.jpg", testo: { it: "Render concettuale del paradenti con il modulo integrato (immagine generata con IA).", en: "Concept render of the mouthguard with the integrated module (AI-generated image)." } },
+    intro: {
+      it: "Il concept di un paradenti smart per gli sport da contatto, che misura nella saliva l'alfa-amilasi, un indicatore dello stress fisico. Quando supera la soglia critica, il paradenti vibra per avvisare l'atleta di fermarsi e invia il dato all'allenatore via Bluetooth. È uno studio di progettazione di materiali: non è stato realizzato un prototipo.",
+      en: "The concept of a smart mouthguard for contact sports that measures alpha-amylase in saliva, a marker of physical stress. When it exceeds the critical threshold, the mouthguard vibrates to tell the athlete to stop and sends the data to the coach over Bluetooth. It is a materials design study: no prototype was built.",
     },
-    problema: { it: "", en: "" },
-    contributo: { it: "", en: "" },
-    risultati: { it: "", en: "" },
-    immagini: [],
+    ruolo: {
+      it: "Nel team mi sono concentrato sul cuore del sistema, l'idrogel e la membrana: scelta dei materiali, meccanismo di funzionamento e processi di produzione.",
+      en: "In the team I focused on the core of the system, the hydrogel and the membrane: material selection, working mechanism and manufacturing processes.",
+    },
+    sezioni: [
+      {
+        titolo: { it: "Il concetto", en: "The concept" },
+        testo: {
+          it: "Il modulo, largo 7 mm e lungo circa 2,5 mm, è inserito di lato nel paradenti. Dall'esterno verso l'interno contiene una membrana, un idrogel sensibile all'alfa-amilasi, una parete di separazione e l'elettronica: un sensore di Hall, un microcontrollore e una microbobina.\n\nQuando la concentrazione di alfa-amilasi supera circa 250 U/mL, l'idrogel si gonfia, il sensore lo rileva e la bobina genera una vibrazione tra 20 e 80 Hz che l'atleta sente per conduzione ossea.",
+          en: "The module, 7 mm wide and about 2.5 mm long, sits in the side of the mouthguard. From the outside in, it contains a membrane, an alpha-amylase-sensitive hydrogel, a separating wall and the electronics: a Hall sensor, a microcontroller and a micro-coil.\n\nWhen alpha-amylase concentration exceeds about 250 U/mL, the hydrogel swells, the sensor detects it and the coil generates a 20–80 Hz vibration that the athlete feels through bone conduction.",
+        },
+        immagine: { file: "progetti/aegis-cerbero/02-modulo-render.jpg", testo: { it: "Esploso concettuale del modulo: membrana, idrogel, parete e elettronica (immagine generata con IA).", en: "Concept exploded view of the module: membrane, hydrogel, wall and electronics (AI-generated image)." } },
+      },
+      {
+        titolo: { it: "La membrana elettrofilata", en: "The electrospun membrane" },
+        testo: {
+          it: "La membrana è un tessuto di nanofibre ottenuto per electrospinning a 22–25 kV da una miscela di TPU alifatico a base polietere, PEG e nanoparticelle d'argento. Spessa 25 µm e con pori di 150–200 nm, blocca batteri e mucine (oltre 500 nm) e lascia passare acqua e alfa-amilasi (5–7 nm). Il PEG migra in superficie e la rende antiaderente, l'argento limita la proliferazione batterica.\n\nIl TPU, con modulo di Young di circa 0,03 GPa e snervamento di circa 40 MPa, lavora come una molla: quando l'idrogel si gonfia la membrana si deforma a cupola e accumula energia, che poi restituisce comprimendo il gel e ripulendo i pori.",
+          en: "The membrane is a nanofibre web made by electrospinning at 22–25 kV from a blend of aliphatic polyether-based TPU, PEG and silver nanoparticles. At 25 µm thick with 150–200 nm pores, it blocks bacteria and mucins (over 500 nm) while letting water and alpha-amylase (5–7 nm) through. PEG migrates to the surface and makes it anti-fouling; silver limits bacterial growth.\n\nThe TPU, with a Young's modulus of about 0.03 GPa and a yield strength of about 40 MPa, works like a spring: as the hydrogel swells, the membrane deforms into a dome and stores energy, which it then releases by compressing the gel and flushing the pores.",
+        },
+        immagine: { file: "progetti/aegis-cerbero/03-granta.jpg", testo: { it: "Selezione in Granta: modulo di Young e snervamento del TPU alifatico rispetto agli altri materiali.", en: "Selection in Granta: Young's modulus and yield strength of the aliphatic TPU against other materials." } },
+      },
+      {
+        titolo: { it: "L'idrogel che reagisce all'alfa-amilasi", en: "The alpha-amylase-responsive hydrogel" },
+        testo: {
+          it: "L'idrogel è a base di alginato di sodio reticolato con cloruro di calcio, che gli dà un modulo elastico di 10–25 kPa e ne limita il rigonfiamento a circa il 30%. È arricchito con aptameri specifici per l'alfa-amilasi, legati alle catene con chimica EDC/NHS, e con nanoparticelle di magnetite da circa 10 nm, disperse per sonicazione a freddo perché non si aggreghino.\n\nQuando gli aptameri legano l'enzima, l'equilibrio osmotico cambia e il gel richiama liquido: si gonfia in 2–3 minuti e si espande di 0,2–0,3 mm verso la membrana. Quando l'alfa-amilasi cala torna allo stato iniziale in 8–10 minuti.",
+          en: "The hydrogel is based on sodium alginate crosslinked with calcium chloride, which gives it a 10–25 kPa elastic modulus and limits swelling to about 30%. It is loaded with alpha-amylase-specific aptamers, bound to the chains with EDC/NHS chemistry, and with about 10 nm magnetite nanoparticles, dispersed by cold sonication so they do not cluster.\n\nWhen the aptamers bind the enzyme, the osmotic balance shifts and the gel draws in liquid: it swells in 2–3 minutes and expands 0.2–0.3 mm towards the membrane. When alpha-amylase drops, it returns to its initial state in 8–10 minutes.",
+        },
+        immagine: { file: "progetti/aegis-cerbero/04-idrogel-render.jpg", testo: { it: "L'idrogel a riposo e gonfio, con la membrana deformata a cupola (immagine generata con IA).", en: "The hydrogel at rest and swollen, with the membrane deformed into a dome (AI-generated image)." } },
+      },
+      {
+        titolo: { it: "Rilevamento magnetico", en: "Magnetic sensing" },
+        testo: {
+          it: "Gonfiandosi, l'idrogel allontana le nanoparticelle magnetiche dal sensore di Hall. Il campo cala con il quadrato della distanza: passando da 1 a 1,3 mm si perde circa il 40% del segnale. In più, nel volume maggiore la concentrazione delle particelle cala di circa il 23%, e questo rafforza l'effetto.\n\nAbbiamo modellato in MATLAB come variano volume e campo con lo spostamento e la risposta nel tempo con alfa-amilasi alta e bassa, e verificato che l'idrogel abbia la forza per deformare la membrana: genera 0,08–0,38 N, contro i circa 0,01–0,03 N necessari per spostarla di 0,2–0,3 mm.",
+          en: "As it swells, the hydrogel moves the magnetic nanoparticles away from the Hall sensor. The field falls with the square of the distance: going from 1 to 1.3 mm loses about 40% of the signal. On top of that, particle concentration in the larger volume drops by about 23%, which strengthens the effect.\n\nIn MATLAB we modelled how volume and field change with displacement and the time response with high and low alpha-amylase, and checked that the hydrogel has the force to deform the membrane: it generates 0.08–0.38 N, against about 0.01–0.03 N needed to move it by 0.2–0.3 mm.",
+        },
+        immagine: { file: "progetti/aegis-cerbero/05-modelli-matlab.jpg", testo: { it: "Modelli in MATLAB: volume e campo in funzione dello spostamento, e risposta nel tempo con alfa-amilasi alta e bassa.", en: "MATLAB models: volume and field versus displacement, and time response with high and low alpha-amylase." } },
+      },
+      {
+        titolo: { it: "Integrazione e costi", en: "Integration and cost" },
+        testo: {
+          it: "Il paradenti è termoformato su misura da un foglio di 4 mm con due strati di EVA e una rete di nylon in mezzo, che riduce la compressione sotto un pugno da 0,67 a 0,06 mm. Il modulo è chiuso in un involucro di policarbonato, con la membrana saldata al laser sul bordo, e sigillato con un'ultima termoformatura forata per far passare la saliva.\n\nLa stima dei costi dei materiali è di circa 11,70 € per dispositivo, quasi tutti dovuti alla microelettronica.",
+          en: "The mouthguard is custom thermoformed from a 4 mm sheet with two EVA layers and a nylon mesh in between, which cuts compression under a punch from 0.67 to 0.06 mm. The module sits in a polycarbonate case, with the membrane laser-welded to its rim, and is sealed by a final perforated thermoforming layer that lets saliva through.\n\nThe estimated material cost is about €11.70 per device, almost all of it due to the microelectronics.",
+        },
+      },
+    ],
+    risultati: {
+      it: "Un concept completo e verificato con i numeri: materiali scelti e giustificati per ogni strato, meccanismo reversibile di rigonfiamento e recupero, e calcoli di fattibilità per forze, segnale magnetico e costi. I limiti dichiarati sono i tempi di risposta di alcuni minuti, soprattutto in fase di recupero, la stabilità a lungo termine dell'idrogel e l'assenza di prove in vitro e in vivo.",
+      en: "A complete concept checked with numbers: materials chosen and justified for every layer, a reversible swelling and recovery mechanism, and feasibility calculations for forces, magnetic signal and cost. The stated limits are response times of a few minutes, especially during recovery, the long-term stability of the hydrogel and the lack of in vitro and in vivo testing.",
+    },
+    video: "",
     link: [],
   },
 ];
@@ -431,6 +543,21 @@ const PROGETTI = [
   .btn.primario { background: var(--blu); color: #fff; border-color: var(--blu); }
   .btn.primario:hover { background: var(--blu-scuro); border-color: var(--blu-scuro); }
   .btn svg { width: 16px; height: 16px; }
+
+  /* Programma Smart Wearable Technologies */
+  .programma { padding: clamp(22px, 4vw, 40px); border-radius: 16px; background: var(--blu); color: #DCE6F2; }
+  .programma .p-etichetta { color: var(--azzurro); }
+  .programma h2 { margin: 0 0 12px; color: #fff; font-size: clamp(1.3rem, 2.6vw, 1.75rem); line-height: 1.2; }
+  .programma p { margin: 0; max-width: 78ch; }
+  .programma .collegati { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
+  .programma .collegati span { font-size: .8125rem; font-weight: 600; color: #9FB4CC; margin-right: 4px; }
+  .programma .collegati a {
+    font-size: .8125rem; font-weight: 600; color: #fff; text-decoration: none;
+    padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .3);
+  }
+  .programma .collegati a:hover { border-color: #fff; }
+  .programma .btn { margin-top: 20px; background: transparent; color: #fff; border-color: rgba(255, 255, 255, .4); }
+  .programma .btn:hover { border-color: #fff; }
 
   /* Sezioni */
   section.blocco { padding-top: clamp(48px, 7vw, 88px); }
@@ -637,6 +764,8 @@ const PROGETTI = [
 
 const T = {
   progetti:   { it: "Progetti", en: "Projects" },
+  progettiProgramma: { it: "Progetti del programma:", en: "Programme projects:" },
+  scopriProgramma: { it: "Il Programma sul sito del Politecnico", en: "The Programme on Politecnico's website" },
   competenze: { it: "Competenze", en: "Skills" },
   formazione: { it: "Formazione", en: "Education" },
   chi:        { it: "Chi sono", en: "About" },
@@ -779,6 +908,21 @@ function paginaPrincipale(box) {
     cornice.append(img); ap.append(cornice);
   } else ap.classList.add("senza-foto");
   c.append(ap);
+
+  // Programma Smart Wearable Technologies
+  if (typeof PROGRAMMA !== "undefined" && PROGRAMMA) {
+    const pr = el("section", "programma");
+    pr.append(el("span", "p-etichetta", t(PROGRAMMA.etichetta)), el("h2", null, t(PROGRAMMA.titolo)), el("p", null, t(PROGRAMMA.testo)));
+    const collegati = (PROGRAMMA.progetti || []).map(id => PROGETTI.find(x => x.id === id)).filter(Boolean);
+    if (collegati.length) {
+      const riga = el("div", "collegati");
+      riga.append(el("span", null, t(T.progettiProgramma)));
+      collegati.forEach(p => { const a = el("a", null, t(p.titolo)); a.href = `#/p/${encodeURIComponent(p.id)}`; riga.append(a); });
+      pr.append(riga);
+    }
+    if (t(PROGRAMMA.link)) pr.append(bottone(t(T.scopriProgramma), t(PROGRAMMA.link), false, "freccia", true));
+    c.append(pr);
+  }
 
   // Progetti
   const sp = blocco("progetti");
